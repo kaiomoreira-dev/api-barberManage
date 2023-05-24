@@ -16,7 +16,7 @@
 
 ## System Requirements
 * Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
-Nodejs com na versão v16.2.0 .
+Nodejs com na versão v16.2.0
 [Node.js](https://nodejs.org/en/). 
 Criar conta no mongodb, criar cluster compartilhado, criar connection no cluster por Driver, adiquirir link de conexão com password, alterar no arquivo .env a variável de ambiente MONGODB_URL_BARBERSHOP com nome da base barberShop e MONGODB_URL_DBTEST com nome da base DBTest.
 [MongoDB](https://www.mongodb.com).
