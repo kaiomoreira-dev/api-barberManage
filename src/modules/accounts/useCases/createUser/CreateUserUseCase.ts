@@ -1,8 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUsersDTO";
-import { ensureEmail } from "@modules/accounts/ensures/users/ensureEmail";
-import { ensureName } from "@modules/accounts/ensures/users/ensureName";
-import { ensurePassword } from "@modules/accounts/ensures/users/ensurePassword";
+import { ensureEmail } from "@modules/accounts/ensures/ensureEmail";
+import { ensureName } from "@modules/accounts/ensures/ensureName";
+import { ensurePassword } from "@modules/accounts/ensures/ensurePassword";
 import { IUserModel } from "@modules/accounts/infra/mongoose/entities/Users";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { hash } from "bcrypt";
@@ -27,8 +27,7 @@ export class CreateUserUseCase {
             throw new AppError("Name is not available", 401);
         }
 
-        const isValidEmail = ensureEmail(email);
-        if (!isValidEmail) {
+        if (!ensureEmail(email)) {
             throw new AppError("Email not valid", 401);
         }
 
