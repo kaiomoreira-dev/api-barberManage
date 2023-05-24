@@ -39,6 +39,7 @@ export class CreateCompanysUseCase {
             throw new AppError("adress is not available", 401);
         }
 
+        // add test for phone in jest
         if (!ensurePhone(phone)) {
             throw new AppError("phone is not available", 401);
         }

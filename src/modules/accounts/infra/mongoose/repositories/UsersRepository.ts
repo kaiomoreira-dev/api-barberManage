@@ -21,6 +21,7 @@ export class UsersRepository implements IUsersRepository {
         email,
         password,
         address,
+        phone,
     }: ICreateUserDTO): Promise<IUserModel> {
         try {
             const user = await this.repository.create({
@@ -28,6 +29,7 @@ export class UsersRepository implements IUsersRepository {
                 email,
                 password,
                 address,
+                phone,
             });
 
             return user;
@@ -64,19 +66,21 @@ export class UsersRepository implements IUsersRepository {
         }
     }
 
-    async updateById(
-        id: string,
-        name?: string,
-        address?: string,
-        email?: string,
-        password?: string
-    ): Promise<void> {
+    async updateById({
+        id,
+        name,
+        address,
+        email,
+        password,
+        phone,
+    }: ICreateUserDTO): Promise<void> {
         try {
             await this.repository.findByIdAndUpdate(id, {
                 name,
                 address,
                 email,
                 password,
+                phone,
             });
         } catch (error) {
             console.log(error.message);

@@ -5,6 +5,7 @@ import { ensureName } from "@modules/accounts/ensures/ensureName";
 import { ensurePassword } from "@modules/accounts/ensures/ensurePassword";
 import { IUserModel } from "@modules/accounts/infra/mongoose/entities/Users";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
+import { ensurePhone } from "@modules/companys/ensures/ensurePhone";
 import { hash } from "bcrypt";
 import { inject, injectable } from "tsyringe";
 
@@ -22,6 +23,7 @@ export class CreateUserUseCase {
         email,
         password,
         address,
+        phone,
     }: ICreateUserDTO): Promise<IUserModel> {
         if (ensureName(name)) {
             throw new AppError("Name is not available", 401);
@@ -29,6 +31,10 @@ export class CreateUserUseCase {
 
         if (!ensureEmail(email)) {
             throw new AppError("Email not valid", 401);
+        }
+
+        if (!ensurePhone(phone)) {
+            throw new AppError("phone is not available", 401);
         }
 
         const checkEmailUserExist = await this.userRepository.findByEmail(
@@ -52,6 +58,7 @@ export class CreateUserUseCase {
             email,
             password: passwordHash,
             address,
+            phone,
         });
 
         return user;

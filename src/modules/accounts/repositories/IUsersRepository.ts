@@ -8,13 +8,7 @@ export interface IUsersRepository {
     findByEmail(email: string): Promise<IUserModel>;
     findByIdCompany(idCompanys: string): Promise<IUserModel>;
 
-    updateById(
-        id: string,
-        name?: string,
-        address?: string,
-        email?: string,
-        password?: string
-    ): Promise<void>;
+    updateById(data: ICreateUserDTO): Promise<void>;
 
     deleteById(id: string): Promise<void>;
 }

@@ -5,6 +5,7 @@ export interface IUserModel extends Document {
     name: string;
     email: string;
     password: string;
+    phone: string;
     address: string;
     admin: boolean;
     employee: boolean;
@@ -20,6 +21,7 @@ export const UserSchema = new Schema<IUserModel>({
         unique: true,
         match: /^\S+@\S+\.\S+$/,
     },
+    phone: { type: String, required: true },
     password: { type: String, required: true },
     address: { type: String, required: false },
     admin: { type: Boolean, default: false },
