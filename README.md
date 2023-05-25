@@ -1,4 +1,4 @@
-<h1 align="center"> API BarberShop </h1>
+<h1 align="center"> API BarberManage </h1>
 
 ## Summary
 - [Summary](#summary)
@@ -35,7 +35,7 @@ Além disto é bom ter um editor para trabalhar com o código como
 $ git clone <https://github.com/kaiomoreira-dev/api-barbershop.git>
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd api-barbershop
+$ cd api-barberManage
 
 # Instale as dependências
 $ yarn ou npm install
