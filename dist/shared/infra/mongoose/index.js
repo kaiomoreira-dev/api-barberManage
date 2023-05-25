@@ -12,7 +12,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 async function connectionMongoDB() {
   try {
-    const url = process.env.NODE_ENV === "test" ? process.env.MONGODB_URL_DBTEST : process.env.MONGODB_URL_BARBERSHOP;
+    const url = process.env.NODE_ENV === "test" ? process.env.MONGODB_URL_DBTEST : process.env.MONGODB_URL_BARBERMANAGE;
     await _mongoose.default.connect(url);
     const {
       connection
