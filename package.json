@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node dist/shared/infra/http/server.js",
+    "dev": "ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --respawn dist/shared/infra/http/server.ts",
     "test": "export set NODE_OPTIONS=--max_old_space_size=16192 && NODE_ENV=test jest --runInBand --verbose --useStderr --forceExit",
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files"
   },
