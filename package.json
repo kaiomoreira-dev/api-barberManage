@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cyclic-software/starter-express-api.git"
-  },
   "scripts": {
-    "start": "ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
+    "start": "ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --respawn dist/shared/infra/http/server.js",
     "test": "export set NODE_OPTIONS=--max_old_space_size=16192 && NODE_ENV=test jest --runInBand --verbose --useStderr --forceExit",
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaiomoreira-dev/starter-express-api.git"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
