@@ -1,8 +1,0 @@
-.vscode
-node_modules
-.eslintignore
-yarn-error.log
-yarn.lock
-.editorconfig
-dist
-coverage
