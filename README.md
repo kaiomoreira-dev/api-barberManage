@@ -9,7 +9,7 @@
   - [Open \&\& Run](#open--run)
 
 ## Intro
-* BarberShop é API REST desenvolvida para atender às necessidades de uma barbearia que deseja um sistema de gerenciamento que se concentra no acompanhamento e geração de relatórios do negócio.
+* BarberManage é API REST desenvolvida para atender às necessidades de uma barbearia que deseja um sistema de gerenciamento que se concentra no acompanhamento e geração de relatórios do negócio.
   
 ## Description
 * A API REST de Gerenciamento de Barbearia é uma aplicação desenvolvida para fornecer funcionalidades essenciais de gerenciamento de uma barbearia. Esta API permite o registro de clientes, o cadastro de usuários, cadastro de empresas, a definição de serviços oferecidos e a geração de relatórios de negócios.
@@ -18,7 +18,7 @@
 * Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 Nodejs com na v16.2.0
 [Node.js](https://nodejs.org/en/). 
-Criar conta no mongodb, criar cluster compartilhado, criar connection no cluster por Driver, adiquirir link de conexão com password, alterar no arquivo .env a variável de ambiente MONGODB_URL_BARBERSHOP com nome da base barberShop e MONGODB_URL_DBTEST com nome da base DBTest.
+Criar conta no mongodb, criar cluster compartilhado, criar connection no cluster por Driver, adiquirir link de conexão com password, alterar no arquivo .env a variável de ambiente MONGODB_URL_BARBERMANAGE com nome da base barberManage e MONGODB_URL_DBTEST com nome da base DBTest.
 [MongoDB](https://www.mongodb.com).
 E o docker para utilizar docker-compose para subir o container do Redis
 [Docker](https://https://www.docker.com/).
