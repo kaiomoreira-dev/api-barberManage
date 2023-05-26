@@ -59,12 +59,14 @@ export class CompanysRepository implements ICompanysRepository {
         idUsers,
         name,
         address,
+        phone,
     }: ICreateCompanysDTO): Promise<void> {
         try {
             await this.repository.findByIdAndUpdate(id, {
                 idUsers,
                 name,
                 address,
+                phone,
             });
         } catch (error) {
             console.log(error.message);

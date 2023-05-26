@@ -1,8 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUsersDTO";
-import { ensureEmail } from "@modules/accounts/ensures/ensureEmail";
-import { ensureName } from "@modules/accounts/ensures/ensureName";
-import { ensurePassword } from "@modules/accounts/ensures/ensurePassword";
+import { ensureEmail } from "ensures/ensureEmail";
+import { ensureName } from "ensures/ensureName";
+import { ensurePassword } from "ensures/ensurePassword";
 import { IUserModel } from "@modules/accounts/infra/mongoose/entities/Users";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { ensurePhone } from "@modules/companys/ensures/ensurePhone";
