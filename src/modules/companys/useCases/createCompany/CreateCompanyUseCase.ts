@@ -1,9 +1,9 @@
-import { ensureName } from "ensures/ensureName";
 import { ICreateCompanysDTO } from "@modules/companys/dtos/ICreateCompanysDTO";
-import { ensureAddress } from "@modules/companys/ensures/ensureAddress";
-import { ensurePhone } from "@modules/companys/ensures/ensurePhone";
 import { ICompanyModel } from "@modules/companys/infra/mongoose/entities/Companys";
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
+import { ensureAddress } from "ensures/ensureAddress";
+import { ensureName } from "ensures/ensureName";
+import { ensurePhone } from "ensures/ensurePhone";
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "@shared/errors/AppError";
