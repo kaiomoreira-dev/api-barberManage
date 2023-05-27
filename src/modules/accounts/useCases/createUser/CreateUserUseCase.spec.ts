@@ -19,15 +19,12 @@ describe("Create User UseCase", () => {
         createUserUseCase = new CreateUserUseCase(userRepositoryInMemory);
     });
 
-    afterAll(() => {
-        redisClient.quit();
-    });
-
     it("should be able to create user", async () => {
         const user: ICreateUserDTO = {
             name: faker.name.fullName(),
             email: faker.internet.email(),
             password: faker.datatype.string(8),
+            phone: faker.phone.number(),
             address: faker.address.streetAddress(),
         };
 
@@ -41,6 +38,7 @@ describe("Create User UseCase", () => {
             name: faker.datatype.string(3),
             email: faker.internet.email(),
             password: faker.datatype.string(8),
+            phone: faker.phone.number(),
             address: faker.address.streetAddress(),
         };
 
@@ -54,6 +52,7 @@ describe("Create User UseCase", () => {
             name: faker.name.fullName(),
             email: faker.internet.email(),
             password: faker.datatype.string(8),
+            phone: faker.phone.number(),
             address: faker.address.streetAddress(),
         };
 
@@ -63,6 +62,7 @@ describe("Create User UseCase", () => {
             name: faker.name.fullName(),
             email: user1.email,
             password: faker.datatype.string(8),
+            phone: faker.phone.number(),
             address: faker.address.streetAddress(),
         };
 
@@ -76,6 +76,7 @@ describe("Create User UseCase", () => {
             name: faker.name.fullName(),
             email: faker.internet.email(),
             password: faker.datatype.string(4),
+            phone: faker.phone.number(),
             address: faker.address.streetAddress(),
         };
 
@@ -89,6 +90,7 @@ describe("Create User UseCase", () => {
             name: faker.datatype.string(4),
             email: "",
             password: faker.datatype.string(8),
+            phone: faker.phone.number(),
             address: faker.address.streetAddress(),
         };
 
