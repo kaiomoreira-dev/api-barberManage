@@ -35,7 +35,7 @@ export class CompanysRepository implements ICompanysRepository {
             return companys;
         } catch (error) {
             console.log(error.message);
-            throw new AppError("Error creating company", 500);
+            throw new AppError("Error creating company");
         }
     }
     async list(): Promise<ICompanyModel[]> {
@@ -43,7 +43,7 @@ export class CompanysRepository implements ICompanysRepository {
             return this.repository.find();
         } catch (error) {
             console.log(error.message);
-            throw new AppError("Error listing companys", 500);
+            throw new AppError("Error listing companys");
         }
     }
     async findById(id: string): Promise<ICompanyModel> {
@@ -51,7 +51,7 @@ export class CompanysRepository implements ICompanysRepository {
             return this.repository.findById(id);
         } catch (error) {
             console.log(error.message);
-            throw new AppError("Error find company", 500);
+            throw new AppError("Error find company");
         }
     }
     async updateById({
@@ -70,7 +70,7 @@ export class CompanysRepository implements ICompanysRepository {
             });
         } catch (error) {
             console.log(error.message);
-            throw new AppError("Error update company", 500);
+            throw new AppError("Error update company");
         }
     }
     async deleteById(id: string): Promise<void> {
@@ -78,7 +78,7 @@ export class CompanysRepository implements ICompanysRepository {
             await this.repository.findByIdAndDelete(id);
         } catch (error) {
             console.log(error.message);
-            throw new AppError("Error delete company", 500);
+            throw new AppError("Error delete company");
         }
     }
 }
