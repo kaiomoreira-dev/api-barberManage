@@ -1,12 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUsersDTO";
+import { IUserModel } from "@modules/accounts/infra/mongoose/entities/Users";
+import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
+import { hash } from "bcrypt";
 import { ensureEmail } from "ensures/ensureEmail";
 import { ensureName } from "ensures/ensureName";
 import { ensurePassword } from "ensures/ensurePassword";
-import { IUserModel } from "@modules/accounts/infra/mongoose/entities/Users";
-import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
-import { ensurePhone } from "@modules/companys/ensures/ensurePhone";
-import { hash } from "bcrypt";
+import { ensurePhone } from "ensures/ensurePhone";
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "@shared/errors/AppError";
