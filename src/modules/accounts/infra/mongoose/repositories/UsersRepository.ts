@@ -35,7 +35,7 @@ export class UsersRepository implements IUsersRepository {
             return user;
         } catch (error) {
             console.log(error.message);
-            throw new AppError("Error creating user", 500);
+            throw new AppError("Error creating user");
         }
     }
 
@@ -44,7 +44,7 @@ export class UsersRepository implements IUsersRepository {
             return this.repository.findById(id);
         } catch (error) {
             console.log(error.message);
-            throw new AppError("Error find user", 500);
+            throw new AppError("Error find user");
         }
     }
 
@@ -53,7 +53,7 @@ export class UsersRepository implements IUsersRepository {
             return this.repository.findOne({ email });
         } catch (error) {
             console.log(error.message);
-            throw new AppError("Error find user", 500);
+            throw new AppError("Error find user");
         }
     }
 
@@ -62,7 +62,7 @@ export class UsersRepository implements IUsersRepository {
             return this.repository.findById(idCompanys);
         } catch (error) {
             console.log(error.message);
-            throw new AppError("Error find company", 500);
+            throw new AppError("Error find company");
         }
     }
 
@@ -84,7 +84,7 @@ export class UsersRepository implements IUsersRepository {
             });
         } catch (error) {
             console.log(error.message);
-            throw new AppError("Error updating user", 500);
+            throw new AppError("Error updating user");
         }
     }
 
@@ -93,7 +93,7 @@ export class UsersRepository implements IUsersRepository {
             await this.repository.findByIdAndDelete(id);
         } catch (error) {
             console.log(error.message);
-            throw new AppError("Error deleting user", 500);
+            throw new AppError("Error deleting user");
         }
     }
 }
