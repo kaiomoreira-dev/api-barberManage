@@ -1,8 +1,8 @@
-import { ensureName } from "ensures/ensureName";
 import { ICreateCompanysDTO } from "@modules/companys/dtos/ICreateCompanysDTO";
-import { ensureAddress } from "@modules/companys/ensures/ensureAddress";
-import { ensurePhone } from "@modules/companys/ensures/ensurePhone";
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
+import { ensureAddress } from "ensures/ensureAddress";
+import { ensureName } from "ensures/ensureName";
+import { ensurePhone } from "ensures/ensurePhone";
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "@shared/errors/AppError";
@@ -29,13 +29,9 @@ export class UpdateCompanyByIdUseCase {
             throw new AppError("Name is not available", 401);
         }
 
-        console.log(ensureAddress(address));
-
         if (!ensureAddress(address)) {
             throw new AppError("address is not available", 401);
         }
-
-        console.log(ensurePhone(phone));
 
         // add test for phone in jest
         if (!ensurePhone(phone)) {
