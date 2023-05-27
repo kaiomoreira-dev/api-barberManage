@@ -47,13 +47,13 @@ export class UsersRepositoryInMemory implements IUsersRepository {
         throw new Error("Not implemented");
     }
 
-    async updateById(
-        id: string,
-        name?: string,
-        address?: string,
-        email?: string,
-        password?: string
-    ): Promise<void> {
+    async updateById({
+        id,
+        name,
+        address,
+        email,
+        password,
+    }: ICreateUserDTO): Promise<void> {
         const userIndex = this.repository.findIndex((user) => user.id === id);
         this.repository[userIndex].name = name;
         this.repository[userIndex].email = email;
