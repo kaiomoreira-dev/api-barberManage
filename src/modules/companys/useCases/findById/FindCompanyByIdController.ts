@@ -16,6 +16,6 @@ export class FindCompanyByIdController {
             id: idCompanys,
         });
 
-        return response.status(200).json(company);
+        return response.status(201).json(company);
     }
 }

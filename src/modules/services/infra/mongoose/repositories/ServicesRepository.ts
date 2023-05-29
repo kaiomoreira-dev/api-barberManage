@@ -47,15 +47,15 @@ export class ServicesRepository implements IServicesRepository {
             return this.repository.findById(id);
         } catch (error) {
             console.log(error.message);
-            throw new AppError("Error find service");
+            throw new AppError("Error finding service");
         }
     }
-    async findByCompanyId(idCompanys: string): Promise<IServiceModel> {
+    async listByCompanyId(idCompanys: string): Promise<IServiceModel[]> {
         try {
-            return this.repository.findOne({ idCompanys });
+            return this.repository.find({ idCompanys });
         } catch (error) {
             console.log(error.message);
-            throw new AppError("Error find company");
+            throw new AppError("Error finding company");
         }
     }
 
@@ -78,7 +78,6 @@ export class ServicesRepository implements IServicesRepository {
         price,
     }: ICreateServiceDTO): Promise<void> {
         try {
-            console.log(description);
             await this.repository.findByIdAndUpdate(id, {
                 description,
                 name,

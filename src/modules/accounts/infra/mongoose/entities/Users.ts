@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import { ObjectId } from "mongodb";
 import { Schema, model, Document } from "mongoose";
 
 export interface IUserModel extends Document {
@@ -9,6 +10,7 @@ export interface IUserModel extends Document {
     address: string;
     admin: boolean;
     employee: boolean;
+    idCompanys: ObjectId[];
     createdAt: Date;
     updatedAt: Date;
 }
@@ -26,6 +28,7 @@ export const UserSchema = new Schema<IUserModel>({
     address: { type: String, required: false },
     admin: { type: Boolean, default: false },
     employee: { type: Boolean, default: true },
+    idCompanys: [{ type: ObjectId, ref: "Companys", required: false }],
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 });

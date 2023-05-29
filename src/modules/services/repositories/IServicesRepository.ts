@@ -6,7 +6,7 @@ export interface IServicesRepository {
     create(data: ICreateServiceDTO): Promise<IServiceModel>;
     list(): Promise<IServiceModel[]>;
     findById(id: string): Promise<IServiceModel>;
-    findByCompanyId(idCompanys: string): Promise<IServiceModel>;
+    listByCompanyId(idCompanys: string): Promise<IServiceModel[]>;
     findServiceByNameAndByCompanyId(
         idCompanys: string,
         name: string

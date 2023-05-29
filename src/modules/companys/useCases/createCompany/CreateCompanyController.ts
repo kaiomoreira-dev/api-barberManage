@@ -7,12 +7,12 @@ import { CreateCompanyUseCase } from "./CreateCompanyUseCase";
 export class CreateCompanyController {
     async handle(request: Request, response: Response): Promise<Response> {
         const { address, name, phone } = request.body;
-        const { idUsers } = request.params;
+        const { id } = request.user;
 
         const createCompanyUseCase = container.resolve(CreateCompanyUseCase);
 
         const company = await createCompanyUseCase.execute({
-            idUsers,
+            idUsers: id,
             address,
             name,
             phone,
