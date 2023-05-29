@@ -29,6 +29,14 @@ export class UpdateCompanyByIdUseCase {
             throw new AppError("Name is not available", 401);
         }
 
+        const checkCompanyExists = await this.companysRepository.findByName(
+            name
+        );
+
+        if (checkCompanyExists) {
+            throw new AppError("Company already exists", 401);
+        }
+
         if (!ensureAddress(address)) {
             throw new AppError("address is not available", 401);
         }
