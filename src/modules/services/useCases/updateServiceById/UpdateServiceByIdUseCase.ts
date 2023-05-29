@@ -13,17 +13,30 @@ import { AppError } from "@shared/errors/AppError";
 export class UpdateServiceByIdUseCase {
     constructor(
         @inject("ServicesRepository")
-        private servicesRepository: IServicesRepository
+        private servicesRepository: IServicesRepository,
+        @inject("CompanysRepository")
+        private companysRepository: ICompanysRepository
     ) {}
 
     async execute({
         id,
+        idCompanys,
         description,
         name,
         price,
     }: ICreateServiceDTO): Promise<void> {
         if (!ensureName(name)) {
             throw new AppError("Name is not available", 401);
+        }
+
+        const serviceAlreadyExist =
+            await this.servicesRepository.findServiceByNameAndByCompanyId(
+                idCompanys,
+                name
+            );
+
+        if (serviceAlreadyExist) {
+            throw new AppError("Service already exist", 404);
         }
 
         if (!ensurePrice(price)) {
