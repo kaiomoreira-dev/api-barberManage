@@ -58,5 +58,12 @@ export class CostsRepository implements ICostsRepository {
 
 	async updateById(data: ICostModel): Promise<void> {}
 
-	async deleteById(id: string): Promise<void> {}
+	async deleteById(id: string): Promise<void> {
+		try {
+			await this.repository.findByIdAndDelete(id);
+		} catch (error) {
+			console.log(error.message);
+			throw new AppError('Error delete company');
+		}
+	}
 }
