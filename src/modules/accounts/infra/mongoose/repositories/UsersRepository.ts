@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUsersDTO";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
-import { Model, model } from "mongoose";
+import { Model } from "mongoose";
 import { injectable } from "tsyringe";
 
 import { AppError } from "@shared/errors/AppError";
@@ -15,13 +15,21 @@ export class UsersRepository implements IUsersRepository {
     constructor() {
         this.repository = Users;
     }
-
+    async list(): Promise<IUserModel[]> {
+        try {
+            return await this.repository.find();
+        } catch (error) {
+            console.log(error.message);
+            throw new AppError("Error finding user");
+        }
+    }
     async create({
         name,
         email,
         password,
         address,
         phone,
+        idCompanys,
     }: ICreateUserDTO): Promise<IUserModel> {
         try {
             const user = await this.repository.create({
@@ -30,6 +38,7 @@ export class UsersRepository implements IUsersRepository {
                 password,
                 address,
                 phone,
+                idCompanys,
             });
 
             return user;
@@ -57,9 +66,11 @@ export class UsersRepository implements IUsersRepository {
         }
     }
 
-    async findByIdCompany(idCompanys: string): Promise<IUserModel> {
+    async ListByCompanyId(idCompanys: string): Promise<IUserModel[]> {
         try {
-            return this.repository.findById(idCompanys);
+            return this.repository.find({
+                companiesId: idCompanys,
+            });
         } catch (error) {
             console.log(error.message);
             throw new AppError("Error find company");
@@ -73,6 +84,7 @@ export class UsersRepository implements IUsersRepository {
         email,
         password,
         phone,
+        idCompanys,
     }: ICreateUserDTO): Promise<void> {
         try {
             await this.repository.findByIdAndUpdate(id, {
@@ -81,6 +93,7 @@ export class UsersRepository implements IUsersRepository {
                 email,
                 password,
                 phone,
+                $push: { idCompanys },
             });
         } catch (error) {
             console.log(error.message);
