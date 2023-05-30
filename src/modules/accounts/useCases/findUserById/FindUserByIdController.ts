@@ -6,12 +6,12 @@ import { FindUserByIdUseCase } from "./FindUserByIdUseCase";
 
 export class FindUserByIdController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const { id } = request.user;
+        const { idUsers } = request.params;
 
         const findUserByIdUseCase = container.resolve(FindUserByIdUseCase);
 
         const user = await findUserByIdUseCase.execute({
-            id,
+            id: idUsers,
         });
 
         return response.status(200).json(user);

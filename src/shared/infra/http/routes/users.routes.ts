@@ -26,14 +26,14 @@ const listUsersController = new ListUsersController();
 usersRoutes.post("/", createUserController.handle);
 
 usersRoutes.get(
-    "/",
+    "/:idUsers",
     ensureAuthenticate,
     ensureAdmin,
     findUserByIdController.handle
 );
 
 usersRoutes.get(
-    "/all",
+    "/",
     ensureAuthenticate,
     ensureAdmin,
     listUsersController.handle
