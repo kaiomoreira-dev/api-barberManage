@@ -5,9 +5,5 @@ export const ensurePaymentMethod = (paymentMethod: PaymentMethod) => {
     const paymentMethodsRegex =
         /^(CreditCard|DebitCard|Cash|Installments|Pix)$/;
 
-    if (paymentMethodsRegex.test(String(paymentMethod))) {
-        return false;
-    }
-
-    return true;
+    return paymentMethodsRegex.test(String(paymentMethod));
 };
