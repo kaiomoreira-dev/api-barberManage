@@ -6,7 +6,7 @@ export interface ICompanysRepository {
 
     list(): Promise<ICompanyModel[]>;
 
-    findById(id: string): Promise<ICompanyModel>;
+    findById(id: string): Promise<ICompanyModel | boolean>;
     findByName(name: string): Promise<ICompanyModel>;
 
     updateById(data: ICreateCompanysDTO): Promise<void>;

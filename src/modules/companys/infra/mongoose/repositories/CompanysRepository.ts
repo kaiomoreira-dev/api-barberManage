@@ -47,8 +47,11 @@ export class CompanysRepository implements ICompanysRepository {
             throw new AppError("Error listing companys");
         }
     }
-    async findById(id: string): Promise<ICompanyModel> {
+    async findById(id: string): Promise<ICompanyModel | boolean> {
         try {
+            if (!id) {
+                return true;
+            }
             return this.repository.findById(id);
         } catch (error) {
             console.log(error.message);
