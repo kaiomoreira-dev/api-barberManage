@@ -9,7 +9,7 @@ export const servicesExcuteds = Router();
 const createServiceExecutedController = new CreateServiceExecutedController();
 
 servicesExcuteds.post(
-    "/",
+    "/:idClients/:idCompanys",
     ensureAuthenticate,
     ensureEmployee,
     createServiceExecutedController.handle
