@@ -4,6 +4,8 @@ import { faker } from "@faker-js/faker";
 import { UsersRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersRepositoryInMemory";
 
 import "reflect-metadata";
+import { CompanysRepositoryInMemory } from "@modules/companys/repositories/in-memory/CompanysRepositoryInMemory";
+
 import { AppError } from "@shared/errors/AppError";
 
 import { ICreateUsersDTO } from "@modules/accounts/dtos/ICreateUsersDTO";
@@ -11,12 +13,17 @@ import { ICreateUsersDTO } from "@modules/accounts/dtos/ICreateUsersDTO";
 import { CreateUserUseCase } from "./CreateUserUseCase";
 
 let userRepositoryInMemory: UsersRepositoryInMemory;
+let companysRepositoryInMemory: CompanysRepositoryInMemory;
 let createUserUseCase: CreateUserUseCase;
 
 describe("Create User UseCase", () => {
     beforeEach(() => {
         userRepositoryInMemory = new UsersRepositoryInMemory();
-        createUserUseCase = new CreateUserUseCase(userRepositoryInMemory);
+        companysRepositoryInMemory = new CompanysRepositoryInMemory();
+        createUserUseCase = new CreateUserUseCase(
+            userRepositoryInMemory,
+            companysRepositoryInMemory
+        );
     });
 
     it("should be able to create user", async () => {

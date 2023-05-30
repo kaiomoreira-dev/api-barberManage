@@ -1,10 +1,11 @@
+/* eslint-disable import/no-unresolved */
+import { ensureAddress } from "@ensures/ensureAddress";
+import { ensureName } from "@ensures/ensureName";
+import { ensurePhone } from "@ensures/ensurePhone";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { ICreateCompanysDTO } from "@modules/companys/dtos/ICreateCompanysDTO";
 import { ICompanyModel } from "@modules/companys/infra/mongoose/entities/Companys";
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
-import { ensureAddress } from "ensures/ensureAddress";
-import { ensureName } from "ensures/ensureName";
-import { ensurePhone } from "ensures/ensurePhone";
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "@shared/errors/AppError";

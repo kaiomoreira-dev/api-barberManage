@@ -1,4 +1,4 @@
-import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUsersDTO";
+import { ICreateUsersDTO } from "@modules/accounts/dtos/ICreateUsersDTO";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { inject, injectable } from "tsyringe";
 
@@ -16,7 +16,7 @@ export class UpdateUsersUseCase {
         email,
         address,
         phone,
-    }: ICreateUserDTO): Promise<void> {
+    }: ICreateUsersDTO): Promise<void> {
         const checkUserdExists = this.userRepository.findById(id);
 
         if (!checkUserdExists) {

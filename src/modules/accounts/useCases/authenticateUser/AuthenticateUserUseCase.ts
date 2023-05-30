@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable import-helpers/order-imports */
 /* eslint-disable import/no-extraneous-dependencies */
 import auth from "@config/auth";
@@ -9,9 +10,9 @@ import { inject, injectable } from "tsyringe";
 import { AppError } from "@shared/errors/AppError";
 import { DayjsDateProvider } from "@shared/container/providers/DateProvider/implementations/DayjsDateProvider";
 import { IRefreshTokensRepository } from "@modules/accounts/repositories/IRefreshTokensRepository";
-import { ensureEmail } from "ensures/ensureEmail";
-import { ensurePassword } from "ensures/ensurePassword";
 import { ObjectId } from "mongodb";
+import { ensureEmail } from "@ensures/ensureEmail";
+import { ensurePassword } from "@ensures/ensurePassword";
 
 interface IRequest {
     email: string;

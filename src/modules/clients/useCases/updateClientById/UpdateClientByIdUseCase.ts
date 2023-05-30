@@ -1,11 +1,12 @@
+/* eslint-disable import/no-unresolved */
+import { ensureAddress } from "@ensures/ensureAddress";
+import { ensureEsqd } from "@ensures/ensureEsqd";
+import { ensureName } from "@ensures/ensureName";
+import { ensureNumber } from "@ensures/ensureNumber";
+import { ensurePG } from "@ensures/ensurePG";
+import { ensurePhone } from "@ensures/ensurePhone";
 import { ICreateClientDTO } from "@modules/clients/dtos/ICreateClientDTO";
 import { IClientsRepository } from "@modules/clients/repositories/IClientsRepository";
-import { ensureAddress } from "ensures/ensureAddress";
-import { ensureEsqd } from "ensures/ensureEsqd";
-import { ensureName } from "ensures/ensureName";
-import { ensureNumber } from "ensures/ensureNumber";
-import { ensurePG } from "ensures/ensurePG";
-import { ensurePhone } from "ensures/ensurePhone";
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "@shared/errors/AppError";

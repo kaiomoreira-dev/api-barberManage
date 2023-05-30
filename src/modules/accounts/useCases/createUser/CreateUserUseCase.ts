@@ -1,14 +1,15 @@
+/* eslint-disable import/no-unresolved */
 /* eslint-disable import/no-extraneous-dependencies */
+import { ensureEmail } from "@ensures/ensureEmail";
+import { ensureId } from "@ensures/ensureId";
+import { ensureName } from "@ensures/ensureName";
+import { ensurePassword } from "@ensures/ensurePassword";
+import { ensurePhone } from "@ensures/ensurePhone";
 import { ICreateUsersDTO } from "@modules/accounts/dtos/ICreateUsersDTO";
 import { IUserModel } from "@modules/accounts/infra/mongoose/entities/Users";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
 import { hash } from "bcrypt";
-import { ensureEmail } from "ensures/ensureEmail";
-import { ensureId } from "ensures/ensureId";
-import { ensureName } from "ensures/ensureName";
-import { ensurePassword } from "ensures/ensurePassword";
-import { ensurePhone } from "ensures/ensurePhone";
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "@shared/errors/AppError";
