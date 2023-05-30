@@ -7,24 +7,22 @@ import { AppError } from "@shared/errors/AppError";
 
 @injectable()
 export class ListServicesByCompanyIdUseCase {
-    constructor(
-        @inject("ServicesRepository")
-        private servicesRepository: IServicesRepository,
-        @inject("CompanysRepository")
-        private companysRepository: ICompanysRepository
-    ) {}
+	constructor(
+		@inject("ServicesRepository")
+		private servicesRepository: IServicesRepository,
+		@inject("CompanysRepository")
+		private companysRepository: ICompanysRepository
+	) {}
 
-    async execute(idCompanys: string): Promise<IServiceModel[]> {
-        const checkServiceExists = await this.companysRepository.findById(
-            idCompanys
-        );
+	async execute(idCompanys: string): Promise<IServiceModel[]> {
+		const checkServiceExists = await this.companysRepository.findById(idCompanys);
 
-        if (!checkServiceExists) {
-            throw new AppError("Company not found", 404);
-        }
+		if (!checkServiceExists) {
+			throw new AppError("Company not found", 404);
+		}
 
-        const companys = await this.servicesRepository.list();
+		const companys = await this.servicesRepository.listByCompanyId(idCompanys);
 
-        return companys;
-    }
+		return companys;
+	}
 }
