@@ -6,7 +6,7 @@ import { CreateServiceExecutedUseCase } from "./CreateServiceExecutedUseCase";
 
 export class CreateServiceExecutedController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const { value, paymentMethod, paymentDate, serviceDate, idServices } =
+        const { paymentMethod, paymentDate, serviceDate, idServices } =
             request.body;
         const { idCompanys, idClients } = request.params;
         const { id: idUsers } = request.user;
@@ -20,7 +20,6 @@ export class CreateServiceExecutedController {
             idServices,
             idCompanys,
             idUsers,
-            value,
             paymentMethod,
             paymentDate,
             serviceDate,

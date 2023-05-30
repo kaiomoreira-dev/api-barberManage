@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable import/no-unresolved */
@@ -21,6 +22,7 @@ import { IServiceExecutedModel } from "@modules/servicesExcuted/infra/mongoose/e
 import { IServiceExecutedRepository } from "@modules/servicesExcuted/repositories/IServiceExecutedRepository";
 import { inject, injectable } from "tsyringe";
 
+import { DayjsDateProvider } from "@shared/container/providers/DateProvider/implementations/DayjsDateProvider";
 import { AppError } from "@shared/errors/AppError";
 
 @injectable()
@@ -33,7 +35,9 @@ export class CreateServiceExecutedUseCase {
         @inject("ServicesRepository")
         private servicesRepository: IServicesRepository,
         @inject("ServiceExecutedRepository")
-        private serviceExecutedRepository: IServiceExecutedRepository
+        private serviceExecutedRepository: IServiceExecutedRepository,
+        @inject("DayjsDateProvider")
+        private dateProvider: DayjsDateProvider
     ) {}
 
     async execute({
@@ -41,15 +45,14 @@ export class CreateServiceExecutedUseCase {
         idServices,
         idCompanys,
         idUsers,
-        value,
         paymentMethod,
         paymentDate,
         serviceDate,
     }: ICreateServiceExecutedDTO): Promise<IServiceExecutedModel> {
+        let total = 0;
         const checkCompanyExist = await this.companysRepository.findById(
             idCompanys
         );
-
         if (!checkCompanyExist) {
             throw new AppError("Company not found", 404);
         }
@@ -63,12 +66,15 @@ export class CreateServiceExecutedUseCase {
         }
 
         for (const serviceID of idServices) {
-            const checkServiceExists =
-                this.servicesRepository.findById(serviceID);
+            const checkServiceExists = await this.servicesRepository.findById(
+                serviceID
+            );
 
             if (!checkServiceExists) {
                 throw new AppError("Service not found", 404);
             }
+
+            total += checkServiceExists.price;
         }
 
         if (!ensurePaymentMethod(paymentMethod)) {
@@ -88,7 +94,7 @@ export class CreateServiceExecutedUseCase {
             idServices,
             idCompanys,
             idUsers,
-            value,
+            value: total,
             paymentMethod,
             paymentDate,
             serviceDate,
