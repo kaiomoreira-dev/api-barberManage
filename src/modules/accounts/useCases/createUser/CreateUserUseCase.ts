@@ -1,9 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUsersDTO";
+import { ICreateUsersDTO } from "@modules/accounts/dtos/ICreateUsersDTO";
 import { IUserModel } from "@modules/accounts/infra/mongoose/entities/Users";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
+import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
 import { hash } from "bcrypt";
 import { ensureEmail } from "ensures/ensureEmail";
+import { ensureId } from "ensures/ensureId";
 import { ensureName } from "ensures/ensureName";
 import { ensurePassword } from "ensures/ensurePassword";
 import { ensurePhone } from "ensures/ensurePhone";
@@ -15,7 +17,9 @@ import { AppError } from "@shared/errors/AppError";
 export class CreateUserUseCase {
     constructor(
         @inject("UsersRepository")
-        private userRepository: IUsersRepository
+        private userRepository: IUsersRepository,
+        @inject("CompanysRepository")
+        private companysRepository: ICompanysRepository
     ) {}
 
     async execute({
@@ -25,7 +29,7 @@ export class CreateUserUseCase {
         address,
         phone,
         idCompanys,
-    }: ICreateUserDTO): Promise<IUserModel> {
+    }: ICreateUsersDTO): Promise<IUserModel> {
         if (!ensureName(name)) {
             throw new AppError("Name is not available", 401);
         }
@@ -53,6 +57,17 @@ export class CreateUserUseCase {
         const passwordHash = await hash(password, 8);
 
         // Validar se compania existe!!
+        if (!ensureId(idCompanys)) {
+            throw new AppError("Company not found", 401);
+        }
+
+        const checkCompanyExists = await this.companysRepository.findById(
+            idCompanys
+        );
+
+        if (!checkCompanyExists) {
+            throw new AppError("Company not found", 401);
+        }
 
         const user = await this.userRepository.create({
             name,
