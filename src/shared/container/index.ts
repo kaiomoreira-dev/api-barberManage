@@ -5,7 +5,7 @@ import { CompanysRepository } from "@modules/companys/infra/mongoose/repositorie
 import "./in-memory";
 import "./providers";
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
-import { CostsRepository } from "@modules/costs/infra/repositories/ICostsRepository";
+import { CostsRepository } from "@modules/costs/infra/repositories/CostsRepository";
 import { ICostsRepository } from "@modules/costs/repositories/ICostsRepository";
 import { ServicesRepository } from "@modules/services/infra/mongoose/repositories/ServicesRepository";
 import { IServicesRepository } from "@modules/services/repositories/IServicesRepository";
@@ -16,25 +16,25 @@ import { IRefreshTokensRepository } from "@modules/accounts/repositories/IRefres
 import { RefreshTokensRepository } from "@modules/accounts/infra/mongoose/repositories/RefreshTokensRepository";
 
 container.register<IUsersRepository>("UsersRepository", {
-    useClass: UsersRepository,
+	useClass: UsersRepository,
 });
 
 container.register<ICompanysRepository>("CompanysRepository", {
-    useClass: CompanysRepository,
+	useClass: CompanysRepository,
 });
 
 container.register<IServicesRepository>("ServicesRepository", {
-    useClass: ServicesRepository,
+	useClass: ServicesRepository,
 });
 
 container.register<ICostsRepository>("CostsRepository", {
-    useClass: CostsRepository,
+	useClass: CostsRepository,
 });
 
 container.register<IClientsRepository>("ClientsRepository", {
-    useClass: ClientsRepository,
+	useClass: ClientsRepository,
 });
 
 container.register<IRefreshTokensRepository>("RefreshTokensRepository", {
-    useClass: RefreshTokensRepository,
+	useClass: RefreshTokensRepository,
 });
