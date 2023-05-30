@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUsersDTO";
+import { ICreateUsersDTO } from "@modules/accounts/dtos/ICreateUsersDTO";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { Model } from "mongoose";
 import { injectable } from "tsyringe";
@@ -30,7 +30,7 @@ export class UsersRepository implements IUsersRepository {
         address,
         phone,
         idCompanys,
-    }: ICreateUserDTO): Promise<IUserModel> {
+    }: ICreateUsersDTO): Promise<IUserModel> {
         try {
             const user = await this.repository.create({
                 name,
@@ -85,7 +85,7 @@ export class UsersRepository implements IUsersRepository {
         password,
         phone,
         idCompanys,
-    }: ICreateUserDTO): Promise<void> {
+    }: ICreateUsersDTO): Promise<void> {
         try {
             await this.repository.findByIdAndUpdate(id, {
                 name,
