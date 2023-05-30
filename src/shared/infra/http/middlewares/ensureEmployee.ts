@@ -19,8 +19,6 @@ export async function ensureEmployee(
         if (!user.employee) {
             throw new AppError("Permission denied!");
         }
-
-        console.log("vai");
         return next();
     } catch (error) {
         throw new AppError("User not have permission to access this page", 401);
