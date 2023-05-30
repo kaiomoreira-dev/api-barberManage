@@ -6,6 +6,8 @@ export interface IServiceModel extends Document {
     description: string;
     name: string;
     price: number;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export const ServiceSchema = new Schema<IServiceModel>({
@@ -13,6 +15,8 @@ export const ServiceSchema = new Schema<IServiceModel>({
     description: { type: String, required: false },
     name: { type: String, required: true },
     price: { type: Number, required: true, default: 0 },
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },
 });
 
 export default model<IServiceModel>("Services", ServiceSchema);
