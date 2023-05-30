@@ -59,7 +59,25 @@ export class CostsRepository implements ICostsRepository {
 		}
 	}
 
-	async updateById(data: ICostModel): Promise<void> {}
+	async updateById({
+		id,
+		idCompanys,
+		description,
+		costDate,
+		value,
+	}: ICreateCostsDTO): Promise<void> {
+		try {
+			await this.repository.findByIdAndUpdate(id, {
+				description,
+				value,
+				costDate,
+				idCompanys,
+			});
+		} catch (error) {
+			console.log(error.message);
+			throw new AppError("Error update company");
+		}
+	}
 
 	async deleteById(id: string): Promise<void> {
 		try {
