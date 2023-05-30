@@ -1,6 +1,6 @@
 import { CreateUserController } from "@modules/accounts/useCases/createUser/CreateUserController";
 import { DeleteUserByIdController } from "@modules/accounts/useCases/deleteById/DeleteUserByIdController";
-import { ListUsersByCompanyIdController } from "@modules/accounts/useCases/listUserByCompaniId/ListUsersByCompaniIdController";
+import { ListUsersByCompanyIdController } from "@modules/accounts/useCases/listUserByCompanyId/ListUsersByCompaniIdController";
 import { ListUsersController } from "@modules/accounts/useCases/listUsers/ListUsersController";
 import { UpdateUsersController } from "@modules/accounts/useCases/updateUser/UpdateUsersController";
 import { Router } from "express";
@@ -37,7 +37,7 @@ usersRoutes.get(
 );
 
 usersRoutes.put(
-    "/",
+    "/:idUsers",
     ensureAuthenticate,
     ensureAdmin,
     updateUsersController.handle

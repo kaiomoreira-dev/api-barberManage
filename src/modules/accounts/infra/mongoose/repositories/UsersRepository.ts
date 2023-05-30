@@ -69,7 +69,7 @@ export class UsersRepository implements IUsersRepository {
     async ListByCompanyId(idCompanys: string): Promise<IUserModel[]> {
         try {
             return this.repository.find({
-                companiesId: idCompanys,
+                idCompanys,
             });
         } catch (error) {
             console.log(error.message);
