@@ -38,6 +38,7 @@ export class RefreshTokenUseCase {
                 idUsers,
                 token
             );
+
         if (!userToken) {
             throw new AppError("Refresh token not found", 404);
         }

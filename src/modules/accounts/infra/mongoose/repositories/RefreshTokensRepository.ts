@@ -49,7 +49,7 @@ export class RefreshTokensRepository implements IRefreshTokensRepository {
     }
     async deleteById(id: string): Promise<void> {
         try {
-            await this.repository.findByIdAndDelete({ id });
+            await this.repository.findByIdAndDelete(id);
         } catch (error) {
             console.log(error.message);
             throw new AppError("Error deleting refresh tokens");
