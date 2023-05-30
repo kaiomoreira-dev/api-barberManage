@@ -1,3 +1,4 @@
+import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { ICreateCompanysDTO } from "@modules/companys/dtos/ICreateCompanysDTO";
 import { ICompanyModel } from "@modules/companys/infra/mongoose/entities/Companys";
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
@@ -14,7 +15,7 @@ export class CreateCompanyUseCase {
         @inject("CompanysRepository")
         private companysRepository: ICompanysRepository,
         @inject("UsersRepository")
-        private usersRepository: ICompanysRepository
+        private usersRepository: IUsersRepository
     ) {}
 
     async execute({
@@ -55,6 +56,11 @@ export class CreateCompanyUseCase {
             name,
             address,
             phone,
+        });
+
+        await this.usersRepository.updateById({
+            id: checkUserExist.id,
+            idCompanys: company.id,
         });
 
         return company;
