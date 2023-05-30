@@ -28,39 +28,29 @@ const updateClientByIdController = new UpdateClientByIdController();
 const deleteClientByIdController = new DeleteClientByIdController();
 
 clientsRoutes.post(
-    "/:idCompanys",
-    ensureAuthenticate,
-    ensureEmployee,
-    createClientsController.handle
+	"/:idCompanys",
+	ensureAuthenticate,
+	createClientsController.handle
 );
-clientsRoutes.get(
-    "/",
-    ensureAuthenticate,
-    ensureEmployee,
-    listClientsController.handle
-);
+clientsRoutes.get("/", ensureAuthenticate, listClientsController.handle);
 
 clientsRoutes.get(
-    "/companys/:idCompanys",
-    ensureAuthenticate,
-    ensureEmployee,
-    listClientByCompanyIdController.handle
+	"/companys/:idCompanys",
+	ensureAuthenticate,
+	listClientByCompanyIdController.handle
 );
 clientsRoutes.get(
-    "/:idClients",
-    ensureAuthenticate,
-    ensureEmployee,
-    findClientByIdController.handle
+	"/:idClients",
+	ensureAuthenticate,
+	findClientByIdController.handle
 );
 clientsRoutes.put(
-    "/:idClients",
-    ensureAuthenticate,
-    ensureAdmin,
-    updateClientByIdController.handle
+	"/:idClients",
+	ensureAuthenticate,
+	updateClientByIdController.handle
 );
 clientsRoutes.delete(
-    "/:idClients",
-    ensureAuthenticate,
-    ensureAdmin,
-    deleteClientByIdController.handle
+	"/:idClients",
+	ensureAuthenticate,
+	deleteClientByIdController.handle
 );
