@@ -24,6 +24,8 @@ interface IResponse {
         id: string;
         name: string;
         email: string;
+        employee: boolean;
+        admin: boolean;
         idCompanys: ObjectId[];
     };
     token: string;
@@ -91,6 +93,8 @@ export class AuthenticateUserUseCase {
                 id,
                 name,
                 email,
+                admin: userExists.admin,
+                employee: userExists.employee,
                 idCompanys: userExists.idCompanys,
             },
             token,
