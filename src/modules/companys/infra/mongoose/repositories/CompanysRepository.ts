@@ -16,6 +16,7 @@ export class CompanysRepository implements ICompanysRepository {
     constructor() {
         this.repository = Companys;
     }
+
     async findByName(name: string): Promise<ICompanyModel> {
         return await this.repository.findOne({ name });
     }
@@ -42,6 +43,14 @@ export class CompanysRepository implements ICompanysRepository {
     async list(): Promise<ICompanyModel[]> {
         try {
             return this.repository.find();
+        } catch (error) {
+            console.log(error.message);
+            throw new AppError("Error listing companys");
+        }
+    }
+    async listByUserId(idUsers: string): Promise<ICompanyModel[]> {
+        try {
+            return this.repository.find({ idUsers });
         } catch (error) {
             console.log(error.message);
             throw new AppError("Error listing companys");

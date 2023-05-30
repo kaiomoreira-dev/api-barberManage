@@ -1,7 +1,7 @@
 import { CreateCompanyController } from "@modules/companys/useCases/createCompany/CreateCompanyController";
 import { DeleteCompanyByIdController } from "@modules/companys/useCases/deleteById/DeleteCompanysByIdController";
 import { FindCompanyByIdController } from "@modules/companys/useCases/findById/FindCompanyByIdController";
-import { ListCompanysController } from "@modules/companys/useCases/listCompanys/ListCompanysController";
+import { ListCompanyByUserIdController } from "@modules/companys/useCases/listCompanyByUserId/ListCompanyByUserIdController";
 import { UpdateCompanyByIdController } from "@modules/companys/useCases/updateById/UpdateCompanysByIdController";
 import { Router } from "express";
 
@@ -14,7 +14,7 @@ const createCompanyController = new CreateCompanyController();
 
 const findCompanyByIdController = new FindCompanyByIdController();
 
-const listCompanysController = new ListCompanysController();
+const listCompanyByUserIdController = new ListCompanyByUserIdController();
 
 const updateCompanyByIdController = new UpdateCompanyByIdController();
 
@@ -30,7 +30,7 @@ companysRoutes.get(
     "/",
     ensureAuthenticate,
     ensureAdmin,
-    listCompanysController.handle
+    listCompanyByUserIdController.handle
 );
 companysRoutes.get(
     "/:idCompanys",

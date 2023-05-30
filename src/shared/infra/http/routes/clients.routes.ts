@@ -4,6 +4,7 @@ import { FindClientByIdController } from "@modules/clients/useCases/findClientBy
 import { ListClientByCompanyIdController } from "@modules/clients/useCases/listClientByCompanyId/ListClientByCompanyIdController";
 import { ListClientsController } from "@modules/clients/useCases/listClients/LIstClientsController";
 import { UpdateClientByIdController } from "@modules/clients/useCases/updateClientById/UpdateClientByIdController";
+import { ListCompanyByUserIdController } from "@modules/companys/useCases/listCompanyByUserId/ListCompanyByUserIdController";
 import { Router } from "express";
 
 import { ensureAdmin } from "../middlewares/ensureAdmin";
@@ -19,6 +20,8 @@ const listClientsController = new ListClientsController();
 const listClientByCompanyIdController = new ListClientByCompanyIdController();
 
 const findClientByIdController = new FindClientByIdController();
+
+const listCompanyByUserIdController = new ListCompanyByUserIdController();
 
 const updateClientByIdController = new UpdateClientByIdController();
 
@@ -36,6 +39,7 @@ clientsRoutes.get(
     ensureEmployee,
     listClientsController.handle
 );
+
 clientsRoutes.get(
     "/companys/:idCompanys",
     ensureAuthenticate,

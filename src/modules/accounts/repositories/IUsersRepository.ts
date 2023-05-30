@@ -6,7 +6,7 @@ export interface IUsersRepository {
     findById(id: string): Promise<IUserModel>;
     findByEmail(email: string): Promise<IUserModel>;
     list(): Promise<IUserModel[]>;
-    ListByCompanyId(idCompanys: string): Promise<IUserModel[]>;
+    listByCompanyId(idCompanys: string): Promise<IUserModel[]>;
     updateById(data: ICreateUsersDTO): Promise<void>;
     deleteById(id: string): Promise<void>;
 }

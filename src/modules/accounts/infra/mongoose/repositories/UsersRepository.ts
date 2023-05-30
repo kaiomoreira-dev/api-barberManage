@@ -66,7 +66,7 @@ export class UsersRepository implements IUsersRepository {
         }
     }
 
-    async ListByCompanyId(idCompanys: string): Promise<IUserModel[]> {
+    async listByCompanyId(idCompanys: string): Promise<IUserModel[]> {
         try {
             return this.repository.find({
                 idCompanys,

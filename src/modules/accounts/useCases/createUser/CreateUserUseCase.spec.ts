@@ -1,11 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-unresolved */
 import { faker } from "@faker-js/faker";
-import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUsersDTO";
 import { UsersRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersRepositoryInMemory";
 
 import "reflect-metadata";
 import { AppError } from "@shared/errors/AppError";
+
+import { ICreateUsersDTO } from "@modules/accounts/dtos/ICreateUsersDTO";
 
 import { CreateUserUseCase } from "./CreateUserUseCase";
 
@@ -19,7 +20,7 @@ describe("Create User UseCase", () => {
     });
 
     it("should be able to create user", async () => {
-        const user: ICreateUserDTO = {
+        const user: ICreateUsersDTO = {
             name: faker.name.fullName(),
             email: faker.internet.email(),
             password: faker.datatype.string(8),
@@ -33,7 +34,7 @@ describe("Create User UseCase", () => {
     });
 
     it("should not be able to create user with leght name less than 3 characters or equall zero", async () => {
-        const user: ICreateUserDTO = {
+        const user: ICreateUsersDTO = {
             name: faker.datatype.string(3),
             email: faker.internet.email(),
             password: faker.datatype.string(8),
@@ -47,7 +48,7 @@ describe("Create User UseCase", () => {
     });
 
     it("should not be able to create user if email already exists ", async () => {
-        const user1: ICreateUserDTO = {
+        const user1: ICreateUsersDTO = {
             name: faker.name.fullName(),
             email: faker.internet.email(),
             password: faker.datatype.string(8),
@@ -57,7 +58,7 @@ describe("Create User UseCase", () => {
 
         await createUserUseCase.execute(user1);
 
-        const user2: ICreateUserDTO = {
+        const user2: ICreateUsersDTO = {
             name: faker.name.fullName(),
             email: user1.email,
             password: faker.datatype.string(8),
@@ -71,7 +72,7 @@ describe("Create User UseCase", () => {
     });
 
     it("should not be able to create user with password less than lenght 5 characters", async () => {
-        const user: ICreateUserDTO = {
+        const user: ICreateUsersDTO = {
             name: faker.name.fullName(),
             email: faker.internet.email(),
             password: faker.datatype.string(4),
@@ -85,7 +86,7 @@ describe("Create User UseCase", () => {
     });
 
     it("should not be able to create a user without email field empty", async () => {
-        const user: ICreateUserDTO = {
+        const user: ICreateUsersDTO = {
             name: faker.datatype.string(4),
             email: "",
             password: faker.datatype.string(8),

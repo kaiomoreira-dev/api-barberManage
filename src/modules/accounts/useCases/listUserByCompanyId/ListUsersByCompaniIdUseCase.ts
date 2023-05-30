@@ -23,7 +23,7 @@ export class ListUsersByCompanyIdUseCase {
             throw new AppError("Company not found", 404);
         }
 
-        const users = await this.usersRepository.ListByCompanyId(idCompanys);
+        const users = await this.usersRepository.listByCompanyId(idCompanys);
 
         return users;
     }

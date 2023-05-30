@@ -2,7 +2,7 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-extraneous-dependencies */
 import { faker } from "@faker-js/faker";
-import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUsersDTO";
+import { ICreateUsersDTO } from "@modules/accounts/dtos/ICreateUsersDTO";
 import Users, {
     IUserModel,
 } from "@modules/accounts/infra/mongoose/entities/Users";
@@ -20,7 +20,7 @@ export class UsersRepositoryInMemory implements IUsersRepository {
         email,
         password,
         address,
-    }: ICreateUserDTO): Promise<IUserModel> {
+    }: ICreateUsersDTO): Promise<IUserModel> {
         const user = new Users();
 
         const generateID = faker.datatype.uuid();
@@ -39,6 +39,9 @@ export class UsersRepositoryInMemory implements IUsersRepository {
     async list(): Promise<IUserModel[]> {
         return this.repository;
     }
+    async listByCompanyId(idCompanys: string): Promise<IUserModel[]> {
+        throw new Error("Method not implemented.");
+    }
     async findByEmail(email: string): Promise<IUserModel> {
         return this.repository.find((user) => user.email === email);
     }
@@ -53,7 +56,7 @@ export class UsersRepositoryInMemory implements IUsersRepository {
         address,
         email,
         password,
-    }: ICreateUserDTO): Promise<void> {
+    }: ICreateUsersDTO): Promise<void> {
         const userIndex = this.repository.findIndex((user) => user.id === id);
         this.repository[userIndex].name = name;
         this.repository[userIndex].email = email;

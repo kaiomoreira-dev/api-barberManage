@@ -15,7 +15,9 @@ export class FindCompanyByIdUseCase {
         private companysRepository: ICompanysRepository
     ) {}
 
-    async execute({ id }: ICreateCompanysDTO): Promise<ICompanyModel> {
+    async execute({
+        id,
+    }: ICreateCompanysDTO): Promise<ICompanyModel | boolean> {
         const checkCompanyExists = this.companysRepository.findById(id);
 
         if (!checkCompanyExists) {
