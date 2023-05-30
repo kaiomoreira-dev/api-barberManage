@@ -1,5 +1,6 @@
 import { CreateUserController } from "@modules/accounts/useCases/createUser/CreateUserController";
 import { DeleteUserByIdController } from "@modules/accounts/useCases/deleteById/DeleteUserByIdController";
+import { FindUserByIdController } from "@modules/accounts/useCases/findUserById/FindUserByIdController";
 import { ListUsersByCompanyIdController } from "@modules/accounts/useCases/listUserByCompanyId/ListUsersByCompaniIdController";
 import { ListUsersController } from "@modules/accounts/useCases/listUsers/ListUsersController";
 import { UpdateUsersController } from "@modules/accounts/useCases/updateUser/UpdateUsersController";
@@ -11,6 +12,8 @@ import { ensureAuthenticate } from "../middlewares/ensureAuthenticate";
 export const usersRoutes = Router();
 
 const createUserController = new CreateUserController();
+
+const findUserByIdController = new FindUserByIdController();
 
 const listUsersByCompanyIdController = new ListUsersByCompanyIdController();
 
@@ -24,6 +27,13 @@ usersRoutes.post("/", createUserController.handle);
 
 usersRoutes.get(
     "/",
+    ensureAuthenticate,
+    ensureAdmin,
+    findUserByIdController.handle
+);
+
+usersRoutes.get(
+    "/all",
     ensureAuthenticate,
     ensureAdmin,
     listUsersController.handle
