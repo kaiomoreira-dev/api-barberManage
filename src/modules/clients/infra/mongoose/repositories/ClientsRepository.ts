@@ -60,8 +60,11 @@ export class ClientsRepository implements IClientsRepository {
             throw new AppError("Error listing clients");
         }
     }
-    async findById(id: string): Promise<IClientModel> {
+    async findById(id: string): Promise<IClientModel | boolean> {
         try {
+            if (!id) {
+                return true;
+            }
             return this.repository.findById(id);
         } catch (error) {
             console.log(error.message);
