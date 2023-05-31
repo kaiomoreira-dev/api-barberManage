@@ -42,8 +42,11 @@ export class ServicesRepository implements IServicesRepository {
             throw new AppError("Error listing services");
         }
     }
-    async findById(id: string): Promise<IServiceModel> {
+    async findById(id: string): Promise<IServiceModel | boolean> {
         try {
+            if (!id) {
+                return true;
+            }
             return this.repository.findById(id);
         } catch (error) {
             console.log(error.message);
