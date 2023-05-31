@@ -1,6 +1,6 @@
 import { ICreateServiceExecutedDTO } from "@modules/servicesExcuted/dtos/ICreateServiceExecutedDTO";
 import { IServiceExecutedRepository } from "@modules/servicesExcuted/repositories/IServiceExecutedRepository";
-import { Model } from "mongoose";
+import mongoose, { Model } from "mongoose";
 
 import { AppError } from "@shared/errors/AppError";
 
