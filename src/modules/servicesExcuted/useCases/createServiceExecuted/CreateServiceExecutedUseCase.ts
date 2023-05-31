@@ -5,6 +5,7 @@
 import { ensureAddress } from "@ensures/ensureAddress";
 import { ensureDate } from "@ensures/ensureDate";
 import { ensureEsqd } from "@ensures/ensureEsqd";
+import { ensureId } from "@ensures/ensureId";
 import { ensureName } from "@ensures/ensureName";
 import { ensureNumber } from "@ensures/ensureNumber";
 import { ensurePaymentMethod } from "@ensures/ensurePaymentMethod";
@@ -16,6 +17,7 @@ import { ICreateClientDTO } from "@modules/clients/dtos/ICreateClientDTO";
 import { IClientModel } from "@modules/clients/infra/mongoose/entities/Clients";
 import { IClientsRepository } from "@modules/clients/repositories/IClientsRepository";
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
+import { IServiceModel } from "@modules/services/infra/mongoose/entities/Services";
 import { IServicesRepository } from "@modules/services/repositories/IServicesRepository";
 import { ICreateServiceExecutedDTO } from "@modules/servicesExcuted/dtos/ICreateServiceExecutedDTO";
 import { IServiceExecutedModel } from "@modules/servicesExcuted/infra/mongoose/entities/ServiceExecuted";
@@ -35,9 +37,7 @@ export class CreateServiceExecutedUseCase {
         @inject("ServicesRepository")
         private servicesRepository: IServicesRepository,
         @inject("ServiceExecutedRepository")
-        private serviceExecutedRepository: IServiceExecutedRepository,
-        @inject("DayjsDateProvider")
-        private dateProvider: DayjsDateProvider
+        private serviceExecutedRepository: IServiceExecutedRepository
     ) {}
 
     async execute({
@@ -50,11 +50,21 @@ export class CreateServiceExecutedUseCase {
         serviceDate,
     }: ICreateServiceExecutedDTO): Promise<IServiceExecutedModel> {
         let total = 0;
+
+        if (!ensureId(idCompanys)) {
+            throw new AppError("Company not found", 401);
+        }
+
         const checkCompanyExist = await this.companysRepository.findById(
             idCompanys
         );
+
         if (!checkCompanyExist) {
             throw new AppError("Company not found", 404);
+        }
+
+        if (!ensureId(idClients)) {
+            throw new AppError("Company not found", 401);
         }
 
         const checkCompanyExists = await this.clientsRepository.findById(
@@ -66,9 +76,9 @@ export class CreateServiceExecutedUseCase {
         }
 
         for (const serviceID of idServices) {
-            const checkServiceExists = await this.servicesRepository.findById(
+            const checkServiceExists = (await this.servicesRepository.findById(
                 serviceID
-            );
+            )) as IServiceModel;
 
             if (!checkServiceExists) {
                 throw new AppError("Service not found", 404);
