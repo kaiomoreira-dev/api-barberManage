@@ -6,9 +6,14 @@ import { CreateServiceExecutedUseCase } from "./CreateServiceExecutedUseCase";
 
 export class CreateServiceExecutedController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const { paymentMethod, paymentDate, serviceDate, idServices } =
-            request.body;
-        const { idCompanys, idClients } = request.params;
+        const {
+            paymentMethod,
+            paymentDate,
+            serviceDate,
+            idServices,
+            idCompanys,
+            idClients,
+        } = request.body;
         const { id: idUsers } = request.user;
 
         const createServiceExecutedUseCase = container.resolve(
