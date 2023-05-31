@@ -34,7 +34,7 @@ const deleteServiceExecutedByIdController =
     new DeleteServiceExecutedByIdController();
 
 servicesExcuteds.post(
-    "/:idClients/:idCompanys",
+    "/",
     ensureAuthenticate,
     ensureEmployee,
     createServiceExecutedController.handle
