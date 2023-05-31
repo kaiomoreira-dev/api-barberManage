@@ -1,3 +1,7 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-cond-assign */
+/* eslint-disable no-param-reassign */
+/* eslint-disable eqeqeq */
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -19,7 +23,10 @@ import { IClientsRepository } from "@modules/clients/repositories/IClientsReposi
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
 import { IServiceModel } from "@modules/services/infra/mongoose/entities/Services";
 import { IServicesRepository } from "@modules/services/repositories/IServicesRepository";
-import { ICreateServiceExecutedDTO } from "@modules/servicesExcuted/dtos/ICreateServiceExecutedDTO";
+import {
+    ICreateServiceExecutedDTO,
+    PaymentMethod,
+} from "@modules/servicesExcuted/dtos/ICreateServiceExecutedDTO";
 import { IServiceExecutedModel } from "@modules/servicesExcuted/infra/mongoose/entities/ServiceExecuted";
 import { IServiceExecutedRepository } from "@modules/servicesExcuted/repositories/IServiceExecutedRepository";
 import { inject, injectable } from "tsyringe";
@@ -51,20 +58,12 @@ export class CreateServiceExecutedUseCase {
     }: ICreateServiceExecutedDTO): Promise<IServiceExecutedModel> {
         let total = 0;
 
-        if (!ensureId(idCompanys)) {
-            throw new AppError("Company not found", 401);
-        }
-
         const checkCompanyExist = await this.companysRepository.findById(
             idCompanys
         );
 
         if (!checkCompanyExist) {
             throw new AppError("Company not found", 404);
-        }
-
-        if (!ensureId(idClients)) {
-            throw new AppError("Company not found", 401);
         }
 
         const checkCompanyExists = await this.clientsRepository.findById(
@@ -98,6 +97,13 @@ export class CreateServiceExecutedUseCase {
         if (!ensureDate(serviceDate)) {
             throw new AppError("Service date not found", 404);
         }
+
+        // if (paymentMethod === PaymentMethod.Installments) {
+        //     await this.clientsRepository.updatedById({
+        //         id: idClients,
+        //         debit: total,
+        //     });
+        // }
 
         const serviceExecuted = await this.serviceExecutedRepository.create({
             idClients,
