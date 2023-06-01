@@ -1,5 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import { ensureDecription } from "@ensures/ensureDescription";
+import { ensureId } from "@ensures/ensureId";
 import { ensureName } from "@ensures/ensureName";
 import { ensurePrice } from "@ensures/ensurePrice";
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
@@ -25,7 +26,12 @@ export class CreateServiceUseCase {
         name,
         price,
     }: ICreateServiceDTO): Promise<IServiceModel> {
-        const checkCompanyExists = this.companysRepository.findById(idCompanys);
+        if (!ensureId(idCompanys)) {
+            throw new AppError("Company not found", 404);
+        }
+        const checkCompanyExists = await this.companysRepository.findById(
+            idCompanys
+        );
 
         if (!checkCompanyExists) {
             throw new AppError("Company not found", 404);
