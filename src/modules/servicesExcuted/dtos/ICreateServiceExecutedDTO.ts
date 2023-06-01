@@ -12,6 +12,7 @@ export interface ICreateServiceExecutedDTO {
     idServices?: string[];
     idCompanys?: string;
     idUsers?: string;
+    isLogged?: string;
     value?: number;
     paymentMethod?: PaymentMethod;
     paymentDate?: Date;
