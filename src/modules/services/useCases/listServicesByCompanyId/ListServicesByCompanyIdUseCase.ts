@@ -1,3 +1,4 @@
+import { ensureId } from "@ensures/ensureId";
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
 import { IServiceModel } from "@modules/services/infra/mongoose/entities/Services";
 import { IServicesRepository } from "@modules/services/repositories/IServicesRepository";
@@ -7,22 +8,30 @@ import { AppError } from "@shared/errors/AppError";
 
 @injectable()
 export class ListServicesByCompanyIdUseCase {
-	constructor(
-		@inject("ServicesRepository")
-		private servicesRepository: IServicesRepository,
-		@inject("CompanysRepository")
-		private companysRepository: ICompanysRepository
-	) {}
+    constructor(
+        @inject("ServicesRepository")
+        private servicesRepository: IServicesRepository,
+        @inject("CompanysRepository")
+        private companysRepository: ICompanysRepository
+    ) {}
 
-	async execute(idCompanys: string): Promise<IServiceModel[]> {
-		const checkServiceExists = await this.companysRepository.findById(idCompanys);
+    async execute(idCompanys: string): Promise<IServiceModel[]> {
+        if (!ensureId(idCompanys)) {
+            throw new AppError("Company not found", 404);
+        }
 
-		if (!checkServiceExists) {
-			throw new AppError("Company not found", 404);
-		}
+        const checkServiceExists = await this.companysRepository.findById(
+            idCompanys
+        );
 
-		const companys = await this.servicesRepository.listByCompanyId(idCompanys);
+        if (!checkServiceExists) {
+            throw new AppError("Company not found", 404);
+        }
 
-		return companys;
-	}
+        const companys = await this.servicesRepository.listByCompanyId(
+            idCompanys
+        );
+
+        return companys;
+    }
 }
