@@ -1,3 +1,4 @@
+import { ensureId } from "@ensures/ensureId";
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
 import { ICreateCostsDTO } from "@modules/costs/dtos/ICreateCostsDTO";
 import { ICostModel } from "@modules/costs/infra/entities/Cost";
@@ -10,40 +11,51 @@ import { AppError } from "@shared/errors/AppError";
 
 @injectable()
 export class UpdateCostByIdUseCase {
-	constructor(
-		@inject("CostsRepository")
-		private costRepository: ICostsRepository,
-		@inject("CompanysRepository")
-		private companysRepository: ICompanysRepository
-	) {}
+    constructor(
+        @inject("CostsRepository")
+        private costRepository: ICostsRepository,
+        @inject("CompanysRepository")
+        private companysRepository: ICompanysRepository
+    ) {}
 
-	async execute({ id, description, idCompanys, value, costDate }: ICreateCostsDTO): Promise<void> {
-		if (!ensureName(description)) {
-			throw new AppError("Description is not available", 401);
-		}
+    async execute({
+        id,
+        description,
+        idCompanys,
+        value,
+        costDate,
+    }: ICreateCostsDTO): Promise<void> {
+        if (!ensureId(idCompanys)) {
+            throw new AppError("Company not found", 404);
+        }
+        if (!ensureName(description)) {
+            throw new AppError("Description is not available", 401);
+        }
 
-		const checkCompanyExists = await this.companysRepository.findById(idCompanys);
+        const checkCompanyExists = await this.companysRepository.findById(
+            idCompanys
+        );
 
-		if (!checkCompanyExists) {
-			throw new AppError("Company not found", 401);
-		}
+        if (!checkCompanyExists) {
+            throw new AppError("Company not found", 401);
+        }
 
-		const checkCostExists = await this.costRepository.findById(id);
+        const checkCostExists = await this.costRepository.findById(id);
 
-		if (!checkCostExists) {
-			throw new AppError("Cost not found", 401);
-		}
+        if (!checkCostExists) {
+            throw new AppError("Cost not found", 401);
+        }
 
-		if (!ensurePrice(value)) {
-			throw new AppError("Value not valid", 401);
-		}
+        if (!ensurePrice(value)) {
+            throw new AppError("Value not valid", 401);
+        }
 
-		await this.costRepository.updateById({
-			id,
-			description,
-			idCompanys,
-			value,
-			costDate,
-		});
-	}
+        await this.costRepository.updateById({
+            id,
+            description,
+            idCompanys,
+            value,
+            costDate,
+        });
+    }
 }
