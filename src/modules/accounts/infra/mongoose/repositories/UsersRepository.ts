@@ -15,6 +15,7 @@ export class UsersRepository implements IUsersRepository {
     constructor() {
         this.repository = Users;
     }
+
     async list(): Promise<IUserModel[]> {
         try {
             return await this.repository.find();
@@ -93,11 +94,23 @@ export class UsersRepository implements IUsersRepository {
                 email,
                 password,
                 phone,
-                $push: { idCompanys },
+                $set: { idCompanys },
             });
         } catch (error) {
             console.log(error.message);
             throw new AppError("Error updating user");
+        }
+    }
+
+    async updateCompanysIdsByCompanyId(idCompanys: string): Promise<void> {
+        try {
+            await this.repository.updateMany(
+                { idCompanys },
+                { $pull: { idCompanys } }
+            );
+        } catch (error) {
+            console.log(error.message);
+            throw new AppError("Error updating companysIds");
         }
     }
 
