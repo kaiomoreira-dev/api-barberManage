@@ -6,7 +6,7 @@ import { UpdateServiceByIdUseCase } from "./UpdateServiceByIdUseCase";
 
 export class UpdateServiceByIdController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const { description, name, price } = request.body;
+        const { description, name, price, idCompanys } = request.body;
         const { idServices } = request.params;
         const updateServiceByIdUseCase = container.resolve(
             UpdateServiceByIdUseCase
@@ -14,6 +14,7 @@ export class UpdateServiceByIdController {
 
         await updateServiceByIdUseCase.execute({
             id: idServices,
+            idCompanys,
             description,
             name,
             price,
