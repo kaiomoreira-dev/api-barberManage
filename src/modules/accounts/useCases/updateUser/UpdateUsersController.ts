@@ -5,7 +5,7 @@ import { UpdateUsersUseCase } from "./UpdateUsersUseCase";
 
 export class UpdateUsersController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const { name, email, address, phone } = request.body;
+        const { name, email, address, phone, idCompanys } = request.body;
         const { idUsers } = request.params;
 
         const updateUsersUseCase = container.resolve(UpdateUsersUseCase);
@@ -16,6 +16,7 @@ export class UpdateUsersController {
             name,
             address,
             phone,
+            idCompanys,
         });
 
         return response
