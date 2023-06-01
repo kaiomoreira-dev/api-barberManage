@@ -1,5 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import { ensureAddress } from "@ensures/ensureAddress";
+import { ensureId } from "@ensures/ensureId";
 import { ensureName } from "@ensures/ensureName";
 import { ensurePhone } from "@ensures/ensurePhone";
 import { ICreateCompanysDTO } from "@modules/companys/dtos/ICreateCompanysDTO";
@@ -21,7 +22,12 @@ export class UpdateCompanyByIdUseCase {
         name,
         phone,
     }: ICreateCompanysDTO): Promise<void> {
+        if (!ensureId(id)) {
+            throw new AppError("Company not found", 404);
+        }
+
         const checkCompanyExist = await this.companysRepository.findById(id);
+
         if (!checkCompanyExist) {
             throw new AppError("Company not found", 404);
         }
