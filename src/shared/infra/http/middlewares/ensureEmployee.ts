@@ -15,7 +15,6 @@ export async function ensureEmployee(
         const userRepository = new UsersRepository();
 
         const user = await userRepository.findById(id);
-
         if (!user.employee) {
             throw new AppError("Permission denied!");
         }
