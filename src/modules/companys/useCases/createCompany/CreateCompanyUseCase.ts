@@ -48,10 +48,6 @@ export class CreateCompanyUseCase {
 
         const checkUserExist = await this.usersRepository.findById(idUsers);
 
-        if (!checkUserExist) {
-            throw new AppError("User not found", 404);
-        }
-
         const company = await this.companysRepository.create({
             idUsers,
             name,
