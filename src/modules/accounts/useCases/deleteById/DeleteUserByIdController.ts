@@ -6,12 +6,10 @@ import { DeleteUserByIdUseCase } from "./DeleteUserByIdUseCase";
 
 export class DeleteUserByIdController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const { idUsers } = request.params;
+        const { idUsers: id } = request.params;
         const deleteUserByIdUseCase = container.resolve(DeleteUserByIdUseCase);
 
-        await deleteUserByIdUseCase.execute({
-            id: idUsers,
-        });
+        await deleteUserByIdUseCase.execute(id);
 
         return response
             .status(201)
