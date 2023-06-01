@@ -1,3 +1,4 @@
+import { ensureId } from "@ensures/ensureId";
 import { ICreateServiceDTO } from "@modules/services/dtos/ICreateServiceDTO";
 import { IServiceModel } from "@modules/services/infra/mongoose/entities/Services";
 import { IServicesRepository } from "@modules/services/repositories/IServicesRepository";
@@ -18,6 +19,10 @@ export class FindServiceExecutedByIdUseCase {
     async execute({
         id,
     }: ICreateServiceExecutedDTO): Promise<IServiceExecutedModel> {
+        if (!ensureId(id)) {
+            throw new AppError("ServiceExecuted not found", 404);
+        }
+
         const checkServiceExecutedExists =
             await this.serviceExecutedRepository.findById(id);
         if (!checkServiceExecutedExists) {
