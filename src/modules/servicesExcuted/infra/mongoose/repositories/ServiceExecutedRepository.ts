@@ -1,6 +1,6 @@
 import { ICreateServiceExecutedDTO } from "@modules/servicesExcuted/dtos/ICreateServiceExecutedDTO";
 import { IServiceExecutedRepository } from "@modules/servicesExcuted/repositories/IServiceExecutedRepository";
-import mongoose, { Model } from "mongoose";
+import { Model } from "mongoose";
 
 import { AppError } from "@shared/errors/AppError";
 
@@ -24,6 +24,7 @@ export class ServiceExecutedRepository implements IServiceExecutedRepository {
         paymentMethod,
         serviceDate,
         value,
+        isLogged,
     }: ICreateServiceExecutedDTO): Promise<IServiceExecutedModel> {
         try {
             const servicesExcuted = this.repository.create({
@@ -31,6 +32,7 @@ export class ServiceExecutedRepository implements IServiceExecutedRepository {
                 idCompanys,
                 idServices,
                 idUsers,
+                isLogged,
                 paymentDate,
                 paymentMethod,
                 serviceDate,
