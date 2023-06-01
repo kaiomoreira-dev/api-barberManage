@@ -6,7 +6,8 @@ import { UpdateClientByIdUseCase } from "./UpdateClientByIdUseCase";
 
 export class UpdateClientByIdController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const { name, address, esqd, num, pg, phone } = request.body;
+        const { idCompanys, name, address, esqd, num, pg, phone } =
+            request.body;
         const { idClients } = request.params;
 
         const updateClientByIdUseCase = container.resolve(
@@ -15,6 +16,7 @@ export class UpdateClientByIdController {
 
         await updateClientByIdUseCase.execute({
             id: idClients,
+            idCompanys,
             name,
             address,
             esqd,
