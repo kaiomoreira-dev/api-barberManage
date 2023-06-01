@@ -1,3 +1,4 @@
+import { ensureId } from "@ensures/ensureId";
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
 import { ICreateCostsDTO } from "@modules/costs/dtos/ICreateCostsDTO";
 import { ICostModel } from "@modules/costs/infra/entities/Cost";
@@ -25,6 +26,10 @@ export class CreateCostUseCase {
     }: ICreateCostsDTO): Promise<ICostModel> {
         if (!ensureName(description)) {
             throw new AppError("Description is not available", 401);
+        }
+
+        if (!ensureId(idCompanys)) {
+            throw new AppError("Company not found", 404);
         }
 
         const checkCompanyExists = await this.companysRepository.findById(
