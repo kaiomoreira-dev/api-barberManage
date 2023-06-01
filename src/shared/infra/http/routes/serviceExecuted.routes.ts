@@ -1,9 +1,10 @@
 import { CreateServiceExecutedController } from "@modules/servicesExcuted/useCases/createServiceExecuted/CreateServiceExecutedController";
 import { DeleteServiceExecutedByIdController } from "@modules/servicesExcuted/useCases/deleteServiceExecutedById/DeleteServiceExecutedByIdController";
 import { FindServiceExecutedByIdController } from "@modules/servicesExcuted/useCases/findServiceExecutedById/FindServiceExecutedByIdController";
-import { ListServiceExecutedByClientIdController } from "@modules/servicesExcuted/useCases/ListServiceExecutedByClientId/ListServiceExecutedByClientIdController";
+import { ListServiceExecutedByClientIdController } from "@modules/servicesExcuted/useCases/listServiceExecutedByClientId/ListServiceExecutedByClientIdController";
 import { ListServiceExecutedByCompanyIdController } from "@modules/servicesExcuted/useCases/listServiceExecutedByCompanyId/ListServiceExecutedByCompanyIdController";
 import { ListServiceExecutedByServiceIdController } from "@modules/servicesExcuted/useCases/listServiceExecutedByServiceId/ListServiceExecutedByServiceIdController";
+import { ListServiceExecutedByUserIdController } from "@modules/servicesExcuted/useCases/listServiceExecutedByUserId/ListServiceExecutedByUserIdController";
 import { UpdateServiceExecutedByIdController } from "@modules/servicesExcuted/useCases/updateServiceExecutedById/UpdateServiceExecutedByIdController";
 import { Router } from "express";
 
@@ -26,6 +27,9 @@ const listServiceExecutedByCompanyIdController =
 
 const listServiceExecutedByServiceIdController =
     new ListServiceExecutedByServiceIdController();
+
+const listServiceExecutedByUserIdController =
+    new ListServiceExecutedByUserIdController();
 
 const updateServiceExecutedByIdController =
     new UpdateServiceExecutedByIdController();
@@ -66,6 +70,13 @@ servicesExcuteds.get(
     ensureAuthenticate,
     ensureEmployee,
     listServiceExecutedByServiceIdController.handle
+);
+
+servicesExcuteds.get(
+    "/user/:idUsers",
+    ensureAuthenticate,
+    ensureEmployee,
+    listServiceExecutedByUserIdController.handle
 );
 
 servicesExcuteds.delete(
