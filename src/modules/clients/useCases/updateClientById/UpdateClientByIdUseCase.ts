@@ -1,12 +1,15 @@
 /* eslint-disable import/no-unresolved */
 import { ensureAddress } from "@ensures/ensureAddress";
 import { ensureEsqd } from "@ensures/ensureEsqd";
+import { ensureId } from "@ensures/ensureId";
 import { ensureName } from "@ensures/ensureName";
 import { ensureNumber } from "@ensures/ensureNumber";
 import { ensurePG } from "@ensures/ensurePG";
 import { ensurePhone } from "@ensures/ensurePhone";
 import { ICreateClientDTO } from "@modules/clients/dtos/ICreateClientDTO";
+import { IClientModel } from "@modules/clients/infra/mongoose/entities/Clients";
 import { IClientsRepository } from "@modules/clients/repositories/IClientsRepository";
+import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "@shared/errors/AppError";
@@ -15,37 +18,56 @@ import { AppError } from "@shared/errors/AppError";
 export class UpdateClientByIdUseCase {
     constructor(
         @inject("ClientsRepository")
-        private clientsRepository: IClientsRepository
+        private clientsRepository: IClientsRepository,
+        @inject("CompanysRepository")
+        private companysRepository: ICompanysRepository
     ) {}
 
     async execute({
         id,
+        idCompanys,
         name,
         address,
         esqd,
         num,
         pg,
         phone,
-        debit,
     }: ICreateClientDTO): Promise<void> {
-        const checkClientExist = await this.clientsRepository.findById(id);
+        if (!ensureId(idCompanys)) {
+            throw new AppError("Company not found", 401);
+        }
+        if (!ensureId(id)) {
+            throw new AppError("Service Executed not found", 401);
+        }
 
-        if (!checkClientExist) {
-            throw new AppError("Client not found", 404);
+        const checkCompanyExists = await this.companysRepository.findById(
+            idCompanys
+        );
+
+        if (!checkCompanyExists) {
+            throw new AppError("Company not found", 404);
+        }
+
+        const checkClientIdExists = (await this.clientsRepository.findById(
+            id
+        )) as IClientModel;
+
+        if (!checkClientIdExists) {
+            throw new AppError("client not found", 404);
         }
 
         if (!ensureName(name)) {
             throw new AppError("Name is not available", 401);
         }
 
-        // VERIFICAR OUTRA FORMA DE FAZER ESSA VERIFICAÇÃO, POIS SE VAI ALTERAR ALGUM OUTRO ATRIBUTO NÃO CONSGUE, POIS O NOME É O MESMO
-        // const checkCompanyExists = await this.clientsRepository.findByName(
-        //     name
-        // );
+        if (checkClientIdExists.name !== name) {
+            const checkClientNameExists =
+                await this.clientsRepository.findByName(name);
 
-        // if (checkCompanyExists) {
-        //     throw new AppError("client already exists", 401);
-        // }
+            if (checkClientNameExists) {
+                throw new AppError("Name already exists", 401);
+            }
+        }
 
         if (!ensureAddress(address)) {
             throw new AppError("Adress is not available", 401);
@@ -70,13 +92,13 @@ export class UpdateClientByIdUseCase {
 
         await this.clientsRepository.updatedById({
             id,
+            idCompanys,
             name,
             address,
             esqd,
             num,
             pg,
             phone,
-            debit,
         });
     }
 }
