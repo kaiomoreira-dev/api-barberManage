@@ -60,11 +60,8 @@ export class ClientsRepository implements IClientsRepository {
             throw new AppError("Error listing clients");
         }
     }
-    async findById(id: string): Promise<IClientModel | boolean> {
+    async findById(id: string): Promise<IClientModel> {
         try {
-            if (!id) {
-                return true;
-            }
             return this.repository.findById(id);
         } catch (error) {
             console.log(error.message);
@@ -91,6 +88,7 @@ export class ClientsRepository implements IClientsRepository {
 
     async updatedById({
         id,
+        idCompanys,
         name,
         address,
         esqd,
@@ -101,6 +99,7 @@ export class ClientsRepository implements IClientsRepository {
     }: ICreateClientDTO): Promise<void> {
         try {
             await this.repository.findByIdAndUpdate(id, {
+                idCompanys,
                 name,
                 address,
                 esqd,
@@ -109,6 +108,15 @@ export class ClientsRepository implements IClientsRepository {
                 pg,
                 phone,
             });
+        } catch (error) {
+            console.log(error.message);
+            throw new AppError("Error updating client");
+        }
+    }
+
+    async updateDebitByClientId(id: string, debit: number): Promise<void> {
+        try {
+            await this.repository.findByIdAndUpdate(id, { debit });
         } catch (error) {
             console.log(error.message);
             throw new AppError("Error updating client");
