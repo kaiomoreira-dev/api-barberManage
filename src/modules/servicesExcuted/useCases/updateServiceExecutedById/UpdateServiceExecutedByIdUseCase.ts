@@ -36,11 +36,19 @@ export class UpdateServiceExecutedByIdUseCase {
         paymentMethod,
         serviceDate,
     }: ICreateServiceExecutedDTO): Promise<void> {
+        if (!ensureId(idCompanys)) {
+            throw new AppError("Company not found", 404);
+        }
         const checkCompanyExist = await this.companysRepository.findById(
             idCompanys
         );
+
         if (!checkCompanyExist) {
             throw new AppError("Company not found", 404);
+        }
+
+        if (!ensureId(idClients)) {
+            throw new AppError("Client not found", 404);
         }
 
         const checkCompanyExists = await this.clientsRepository.findById(
@@ -49,6 +57,10 @@ export class UpdateServiceExecutedByIdUseCase {
 
         if (!checkCompanyExists) {
             throw new AppError("Client not found", 404);
+        }
+
+        if (!idServices) {
+            throw new AppError("Service not found", 404);
         }
 
         for (const serviceID of idServices) {
@@ -78,6 +90,20 @@ export class UpdateServiceExecutedByIdUseCase {
 
         if (!ensureDate(serviceDate)) {
             throw new AppError("Service date not found", 404);
+        }
+        const paymentMethodEnumNum =
+            paymentMethod.toString() ===
+            checkServiceExecutedExists.paymentMethod
+                ? checkServiceExecutedExists.paymentMethod
+                : paymentMethod;
+
+        if (paymentMethodEnumNum !== "Installments") {
+            const calcDiscount =
+                checkCompanyExists.debit - checkServiceExecutedExists.value;
+            await this.clientsRepository.updatedById({
+                id: idClients,
+                debit: calcDiscount,
+            });
         }
 
         await this.serviceExecutedRepository.updateById({
