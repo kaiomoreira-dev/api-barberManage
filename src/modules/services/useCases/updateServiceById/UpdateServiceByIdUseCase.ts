@@ -1,5 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import { ensureDecription } from "@ensures/ensureDescription";
+import { ensureId } from "@ensures/ensureId";
 import { ensureName } from "@ensures/ensureName";
 import { ensurePrice } from "@ensures/ensurePrice";
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
@@ -29,14 +30,18 @@ export class UpdateServiceByIdUseCase {
             throw new AppError("Name is not available", 401);
         }
 
+        if (!ensureId(idCompanys)) {
+            throw new AppError("Company not found", 404);
+        }
+
         const serviceAlreadyExist =
             await this.servicesRepository.findServiceByNameAndByCompanyId(
                 idCompanys,
                 name
             );
 
-        if (serviceAlreadyExist) {
-            throw new AppError("Service already exist", 404);
+        if (!serviceAlreadyExist) {
+            throw new AppError("Service not found", 404);
         }
 
         if (!ensurePrice(price)) {
