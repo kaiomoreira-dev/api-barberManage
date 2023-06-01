@@ -6,33 +6,22 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable import/no-unresolved */
-import { ensureAddress } from "@ensures/ensureAddress";
+
 import { ensureDate } from "@ensures/ensureDate";
-import { ensureEsqd } from "@ensures/ensureEsqd";
 import { ensureId } from "@ensures/ensureId";
-import { ensureName } from "@ensures/ensureName";
-import { ensureNumber } from "@ensures/ensureNumber";
 import { ensurePaymentMethod } from "@ensures/ensurePaymentMethod";
-import { ensurePG } from "@ensures/ensurePG";
-import { ensurePhone } from "@ensures/ensurePhone";
-import { ensurePrice } from "@ensures/ensurePrice";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
-import { ICreateClientDTO } from "@modules/clients/dtos/ICreateClientDTO";
-import { IClientModel } from "@modules/clients/infra/mongoose/entities/Clients";
 import { IClientsRepository } from "@modules/clients/repositories/IClientsRepository";
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
 import { IServiceModel } from "@modules/services/infra/mongoose/entities/Services";
 import { IServicesRepository } from "@modules/services/repositories/IServicesRepository";
-import {
-    ICreateServiceExecutedDTO,
-    PaymentMethod,
-} from "@modules/servicesExcuted/dtos/ICreateServiceExecutedDTO";
+import { ICreateServiceExecutedDTO, PaymentMethod } from "@modules/servicesExcuted/dtos/ICreateServiceExecutedDTO";
 import { IServiceExecutedModel } from "@modules/servicesExcuted/infra/mongoose/entities/ServiceExecuted";
 import { IServiceExecutedRepository } from "@modules/servicesExcuted/repositories/IServiceExecutedRepository";
 import { inject, injectable } from "tsyringe";
 
-import { DayjsDateProvider } from "@shared/container/providers/DateProvider/implementations/DayjsDateProvider";
 import { AppError } from "@shared/errors/AppError";
+
 
 @injectable()
 export class CreateServiceExecutedUseCase {
@@ -44,7 +33,9 @@ export class CreateServiceExecutedUseCase {
         @inject("ServicesRepository")
         private servicesRepository: IServicesRepository,
         @inject("ServiceExecutedRepository")
-        private serviceExecutedRepository: IServiceExecutedRepository
+        private serviceExecutedRepository: IServiceExecutedRepository,
+        @inject("UsersRepository")
+        private userRepository: IUsersRepository,
     ) {}
 
     async execute({
@@ -52,26 +43,49 @@ export class CreateServiceExecutedUseCase {
         idServices,
         idCompanys,
         idUsers,
+        isLogged,
         paymentMethod,
         paymentDate,
         serviceDate,
     }: ICreateServiceExecutedDTO): Promise<IServiceExecutedModel> {
-        let total = 0;
+        let priceService = 0;
 
-        const checkCompanyExist = await this.companysRepository.findById(
-            idCompanys
-        );
-
-        if (!checkCompanyExist) {
-            throw new AppError("Company not found", 404);
+        if (!ensureId(idClients)) {
+            throw new AppError("Client not found", 404);
         }
 
-        const checkCompanyExists = await this.clientsRepository.findById(
+        const checkClientExists = await this.clientsRepository.findById(
             idClients
         );
 
-        if (!checkCompanyExists) {
+        if (!checkClientExists) {
             throw new AppError("Client not found", 404);
+        }
+        
+        if (!ensureId(idCompanys)) {
+            throw new AppError("Company not found", 404);
+        }
+
+        const checkCompanyExists = await this.companysRepository.findById(
+            idCompanys
+        );
+
+        if (!checkCompanyExists) {
+            throw new AppError("Company not found", 404);
+        }
+
+        if (!ensureId(idUsers)) {
+            throw new AppError("User not found", 404);
+        }
+
+        const checkUserExists = await this.userRepository.findById(idUsers);
+
+        if (!checkUserExists) {
+            throw new AppError("User not found", 404);
+        }
+
+        if (!idServices) {
+            throw new AppError("Service not found", 404);
         }
 
         for (const serviceID of idServices) {
@@ -83,7 +97,7 @@ export class CreateServiceExecutedUseCase {
                 throw new AppError("Service not found", 404);
             }
 
-            total += checkServiceExists.price;
+            priceService += checkServiceExists.price;
         }
 
         if (!ensurePaymentMethod(paymentMethod)) {
@@ -98,19 +112,23 @@ export class CreateServiceExecutedUseCase {
             throw new AppError("Service date not found", 404);
         }
 
-        // if (paymentMethod === PaymentMethod.Installments) {
-        //     await this.clientsRepository.updatedById({
-        //         id: idClients,
-        //         debit: total,
-        //     });
-        // }
+        const paymentMethodEnumNum = paymentMethod.toString() === "Installments" ? 3 : paymentMethod
+        
+        if (paymentMethodEnumNum === PaymentMethod.Installments) {
+            const total = priceService + checkClientExists.debit;
+            await this.clientsRepository.updatedById({
+                id: idClients,
+                debit: total,
+            });
+        }
 
         const serviceExecuted = await this.serviceExecutedRepository.create({
             idClients,
             idServices,
             idCompanys,
             idUsers,
-            value: total,
+            isLogged,
+            value: priceService,
             paymentMethod,
             paymentDate,
             serviceDate,
