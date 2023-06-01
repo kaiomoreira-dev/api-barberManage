@@ -3,9 +3,11 @@ import { ObjectId } from "mongodb";
 import { Schema, model } from "mongoose";
 
 export interface IServiceExecutedModel extends Document {
+    _id: ObjectId;
     idClients: ObjectId;
     idServices: ObjectId[];
     idCompanys: ObjectId;
+    isLogged: ObjectId;
     idUsers: ObjectId;
     value: number;
     paymentMethod: string;
@@ -16,6 +18,11 @@ export interface IServiceExecutedModel extends Document {
 }
 
 export const ServiceExecutedSchema = new Schema<IServiceExecutedModel>({
+    _id: {
+        type: ObjectId,
+        required: true,
+        auto: true,
+    },
     idClients: { type: ObjectId, required: true },
     idServices: { type: [ObjectId], required: true },
     idCompanys: { type: ObjectId, required: true },
@@ -26,6 +33,7 @@ export const ServiceExecutedSchema = new Schema<IServiceExecutedModel>({
         enum: Object.values(PaymentMethod),
         required: true,
     },
+    isLogged: { type: ObjectId, required: true },
     paymentDate: { type: Date, required: true },
     serviceDate: { type: Date, required: true },
     createdAt: { type: Date, default: Date.now },
