@@ -1,4 +1,8 @@
+import { ensureId } from "@ensures/ensureId";
+import { IUserResponseDTO } from "@modules/accounts/dtos/IUserResponseDTO";
 import { IUserModel } from "@modules/accounts/infra/mongoose/entities/Users";
+import { ListUsersMap } from "@modules/accounts/mappers/ListUsersMap";
+import { UserMap } from "@modules/accounts/mappers/UserMap";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
 import { inject, injectable } from "tsyringe";
@@ -14,7 +18,10 @@ export class ListUsersByCompanyIdUseCase {
         private companysRepository: ICompanysRepository
     ) {}
 
-    async execute(idCompanys: string): Promise<IUserModel[]> {
+    async execute(idCompanys: string): Promise<IUserResponseDTO[]> {
+        if (!ensureId(idCompanys)) {
+            throw new AppError("Company not found", 401);
+        }
         const checkCompanyExist = await this.companysRepository.findById(
             idCompanys
         );
@@ -23,8 +30,10 @@ export class ListUsersByCompanyIdUseCase {
             throw new AppError("Company not found", 404);
         }
 
-        const users = await this.usersRepository.listByCompanyId(idCompanys);
+        const users = (await this.usersRepository.listByCompanyId(
+            idCompanys
+        )) as unknown as IUserResponseDTO[];
 
-        return users;
+        return ListUsersMap.toDTOArray(users);
     }
 }
