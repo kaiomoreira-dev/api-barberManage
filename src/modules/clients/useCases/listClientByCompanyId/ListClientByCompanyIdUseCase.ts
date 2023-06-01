@@ -1,3 +1,4 @@
+import { ensureId } from "@ensures/ensureId";
 import { IClientModel } from "@modules/clients/infra/mongoose/entities/Clients";
 import { IClientsRepository } from "@modules/clients/repositories/IClientsRepository";
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
@@ -15,6 +16,10 @@ export class ListClientByCompanyIdUseCase {
     ) {}
 
     async execute(idCompanys: string): Promise<IClientModel[]> {
+        if (!ensureId(idCompanys)) {
+            throw new AppError("Company not found", 404);
+        }
+
         const checkCompanyExist = await this.companysRepository.findById(
             idCompanys
         );
