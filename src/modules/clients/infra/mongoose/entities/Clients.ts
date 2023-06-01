@@ -11,8 +11,8 @@ export interface IClientModel extends Document {
     num?: number;
     pg: string;
     esqd: string;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 export const ClientSchema = new Schema<IClientModel>({
