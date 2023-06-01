@@ -7,7 +7,7 @@ export interface ICompanysRepository {
     list(): Promise<ICompanyModel[]>;
     listByUserId(idUsers: string): Promise<ICompanyModel[]>;
 
-    findById(id: string): Promise<ICompanyModel | boolean>;
+    findById(id: string): Promise<ICompanyModel>;
     findByName(name: string): Promise<ICompanyModel>;
 
     updateById(data: ICreateCompanysDTO): Promise<void>;
