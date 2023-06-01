@@ -5,7 +5,7 @@ import { IServiceModel } from "../infra/mongoose/entities/Services";
 export interface IServicesRepository {
     create(data: ICreateServiceDTO): Promise<IServiceModel>;
     list(): Promise<IServiceModel[]>;
-    findById(id: string): Promise<IServiceModel | boolean>;
+    findById(id: string): Promise<IServiceModel>;
     listByCompanyId(idCompanys: string): Promise<IServiceModel[]>;
     findServiceByNameAndByCompanyId(
         idCompanys: string,
