@@ -8,5 +8,6 @@ export interface IUsersRepository {
     list(): Promise<IUserModel[]>;
     listByCompanyId(idCompanys: string): Promise<IUserModel[]>;
     updateById(data: ICreateUsersDTO): Promise<void>;
+    updateCompanysIdsByCompanyId(idCompanys: string): Promise<void>;
     deleteById(id: string): Promise<void>;
 }
