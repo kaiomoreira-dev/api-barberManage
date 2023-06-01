@@ -1,6 +1,7 @@
-import { IUserModel } from "@modules/accounts/infra/mongoose/entities/Users";
+import { ensureId } from "@ensures/ensureId";
+import { IUserResponseDTO } from "@modules/accounts/dtos/IUserResponseDTO";
+import { UserMap } from "@modules/accounts/mappers/UserMap";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
-import { ICreateCompanysDTO } from "@modules/companys/dtos/ICreateCompanysDTO";
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "@shared/errors/AppError";
@@ -12,13 +13,17 @@ export class FindUserByIdUseCase {
         private userRepository: IUsersRepository
     ) {}
 
-    async execute({ id }: ICreateCompanysDTO): Promise<IUserModel> {
-        const checkUserExists = this.userRepository.findById(id);
+    async execute(id: string): Promise<IUserResponseDTO> {
+        if (!ensureId(id)) {
+            throw new AppError("User not found", 401);
+        }
+        const checkUserExists = (await this.userRepository.findById(
+            id
+        )) as unknown as IUserResponseDTO;
 
         if (!checkUserExists) {
-            throw new AppError("Company not found", 404);
+            throw new AppError("User not found", 404);
         }
-
-        return checkUserExists;
+        return UserMap.toDTO(checkUserExists);
     }
 }
