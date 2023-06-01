@@ -13,8 +13,9 @@ export class CreateServiceExecutedController {
             idServices,
             idCompanys,
             idClients,
+            idUsers,
         } = request.body;
-        const { id: idUsers } = request.user;
+        const { id } = request.user;
 
         const createServiceExecutedUseCase = container.resolve(
             CreateServiceExecutedUseCase
@@ -28,6 +29,7 @@ export class CreateServiceExecutedController {
             paymentMethod,
             paymentDate,
             serviceDate,
+            isLogged: id,
         });
 
         return response.status(201).json(serviceExecuted);
