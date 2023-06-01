@@ -1,3 +1,4 @@
+import { ensureId } from "@ensures/ensureId";
 import { ICreateCompanysDTO } from "@modules/companys/dtos/ICreateCompanysDTO";
 import { ICompanyModel } from "@modules/companys/infra/mongoose/entities/Companys";
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
@@ -18,6 +19,10 @@ export class FindCompanyByIdUseCase {
     async execute({
         id,
     }: ICreateCompanysDTO): Promise<ICompanyModel | boolean> {
+        if (!ensureId(id)) {
+            throw new AppError("Company not found", 404);
+        }
+
         const checkCompanyExists = this.companysRepository.findById(id);
 
         if (!checkCompanyExists) {
