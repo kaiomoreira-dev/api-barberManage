@@ -1,3 +1,4 @@
+import { ensureId } from "@ensures/ensureId";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { ICreateServiceDTO } from "@modules/services/dtos/ICreateServiceDTO";
 import { inject, injectable } from "tsyringe";
@@ -11,7 +12,10 @@ export class DeleteUserByIdUseCase {
         private userRepository: IUsersRepository
     ) {}
 
-    async execute({ id }: ICreateServiceDTO): Promise<void> {
+    async execute(id: string): Promise<void> {
+        if (!ensureId(id)) {
+            throw new AppError("User not found", 401);
+        }
         const checkServiceExists = this.userRepository.findById(id);
 
         if (!checkServiceExists) {
