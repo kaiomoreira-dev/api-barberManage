@@ -1,7 +1,6 @@
 /* eslint-disable no-return-await */
 import { ICreateCompanysDTO } from "@modules/companys/dtos/ICreateCompanysDTO";
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
-import { ObjectId } from "mongodb";
 import { Model } from "mongoose";
 import { injectable } from "tsyringe";
 
@@ -56,11 +55,8 @@ export class CompanysRepository implements ICompanysRepository {
             throw new AppError("Error listing companys");
         }
     }
-    async findById(id: string): Promise<ICompanyModel | boolean> {
+    async findById(id: string): Promise<ICompanyModel> {
         try {
-            if (!id) {
-                return true;
-            }
             return this.repository.findById(id);
         } catch (error) {
             console.log(error.message);
