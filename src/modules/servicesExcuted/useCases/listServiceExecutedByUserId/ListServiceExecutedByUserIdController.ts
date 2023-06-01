@@ -2,18 +2,18 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
-import { ListServiceExecutedByServiceIdUseCase } from "./ListServiceExecutedByUserIdUseCase";
+import { ListServiceExecutedByUserIdUseCase } from "./ListServiceExecutedByUserIdUseCase";
 
-export class ListServiceExecutedByUserIdUseCase {
+export class ListServiceExecutedByUserIdController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const { idServices } = request.params;
+        const { idUsers } = request.params;
 
-        const listServiceExecutedByServiceIdUseCase = container.resolve(
-            ListServiceExecutedByServiceIdUseCase
+        const listServiceExecutedByUserIdUseCase = container.resolve(
+            ListServiceExecutedByUserIdUseCase
         );
 
         const serviceExecuted =
-            await listServiceExecutedByServiceIdUseCase.execute(idServices);
+            await listServiceExecutedByUserIdUseCase.execute(idUsers);
 
         return response.status(200).json(serviceExecuted);
     }
