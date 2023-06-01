@@ -1,3 +1,5 @@
+import { ObjectId } from "mongodb";
+
 export interface ICreateUsersDTO {
     id?: string;
     name?: string;
@@ -5,5 +7,5 @@ export interface ICreateUsersDTO {
     phone?: string;
     password?: string;
     address?: string;
-    idCompanys?: string;
+    idCompanys?: ObjectId[];
 }
