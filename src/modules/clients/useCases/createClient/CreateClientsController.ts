@@ -6,10 +6,8 @@ import { CreateClientsUseCase } from "./CreateClientsUseCase";
 
 export class CreateClientsController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const { name, address, esqd, num, pg, phone } = request.body;
-        const { idCompanys } = request.params;
-
-        console.log(idCompanys);
+        const { idCompanys, name, address, esqd, num, pg, phone } =
+            request.body;
         const createClientsUseCase = container.resolve(CreateClientsUseCase);
 
         const clients = await createClientsUseCase.execute({
