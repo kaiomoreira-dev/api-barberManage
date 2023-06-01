@@ -6,15 +6,13 @@ import { DeleteServiceExecutedByIdUseCase } from "./DeleteServiceExecutedByIdUse
 
 export class DeleteServiceExecutedByIdController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const { idServiceExecuted } = request.params;
+        const { idServiceExecuted: id } = request.params;
 
         const deleteServiceExecutedByIdUseCase = container.resolve(
             DeleteServiceExecutedByIdUseCase
         );
 
-        await deleteServiceExecutedByIdUseCase.execute({
-            id: idServiceExecuted,
-        });
+        await deleteServiceExecutedByIdUseCase.execute(id);
 
         return response
             .status(201)
