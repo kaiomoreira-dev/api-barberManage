@@ -77,9 +77,12 @@ export class ClientsRepository implements IClientsRepository {
         }
     }
 
-    async findByName(name: string): Promise<IClientModel> {
+    async findByNameAndIdCompanys(
+        name: string,
+        idCompanys: string
+    ): Promise<IClientModel> {
         try {
-            return this.repository.findOne({ name });
+            return this.repository.findOne({ name, idCompanys });
         } catch (error) {
             console.log(error.message);
             throw new AppError("Error finding client");

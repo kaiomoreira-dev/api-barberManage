@@ -47,9 +47,11 @@ export class CreateClientsUseCase {
             throw new AppError("Name is not available", 401);
         }
 
-        const checkCompanyExists = await this.clientsRepository.findByName(
-            name
-        );
+        const checkCompanyExists =
+            await this.clientsRepository.findByNameAndIdCompanys(
+                name,
+                idCompanys
+            );
 
         if (checkCompanyExists) {
             throw new AppError("Client already exists", 401);
