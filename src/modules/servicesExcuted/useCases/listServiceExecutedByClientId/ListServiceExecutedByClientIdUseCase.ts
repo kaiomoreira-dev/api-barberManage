@@ -3,21 +3,14 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ensureId } from "@ensures/ensureId";
-import { IUserResponseDTO } from "@modules/accounts/dtos/IUserResponseDTO";
-import { IUserModel } from "@modules/accounts/infra/mongoose/entities/Users";
 import { UserMap } from "@modules/accounts/mappers/UserMap";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
-import { IClientModel } from "@modules/clients/infra/mongoose/entities/Clients";
 import { IClientsRepository } from "@modules/clients/repositories/IClientsRepository";
-import { ICompanyModel } from "@modules/companys/infra/mongoose/entities/Companys";
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
 import { IServiceModel } from "@modules/services/infra/mongoose/entities/Services";
 import { IServicesRepository } from "@modules/services/repositories/IServicesRepository";
-import { PaymentMethod } from "@modules/servicesExcuted/dtos/ICreateServiceExecutedDTO";
 import { IResponseServiceExecuted } from "@modules/servicesExcuted/dtos/IResponseServiceExecutedDTO";
-import { IServiceExecutedModel } from "@modules/servicesExcuted/infra/mongoose/entities/ServiceExecuted";
 import { IServiceExecutedRepository } from "@modules/servicesExcuted/repositories/IServiceExecutedRepository";
-import { ObjectId } from "mongodb";
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "@shared/errors/AppError";
