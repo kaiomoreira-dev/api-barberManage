@@ -91,24 +91,14 @@ export class ServiceExecutedRepository implements IServiceExecutedRepository {
     async updateById({
         id,
         idClients,
-        idCompanys,
-        idServices,
-        idUsers,
         paymentDate,
         paymentMethod,
-        serviceDate,
-        value,
     }: ICreateServiceExecutedDTO): Promise<void> {
         try {
             return this.repository.findByIdAndUpdate(id, {
                 idClients,
-                idCompanys,
-                idServices,
-                idUsers,
                 paymentDate,
                 paymentMethod,
-                serviceDate,
-                value,
             });
         } catch (error) {
             console.log(error);
