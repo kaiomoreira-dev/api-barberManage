@@ -6,14 +6,7 @@ import { UpdateServiceExecutedByIdUseCase } from "./UpdateServiceExecutedByIdUse
 
 export class UpdateServiceExecutedByIdController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const {
-            paymentMethod,
-            paymentDate,
-            serviceDate,
-            idServices,
-            idCompanys,
-            idClients,
-        } = request.body;
+        const { paymentMethod, paymentDate, idClients } = request.body;
         const { idServiceExecuted } = request.params;
 
         const updateServiceExecutedByIdUseCase = container.resolve(
@@ -22,12 +15,9 @@ export class UpdateServiceExecutedByIdController {
 
         await updateServiceExecutedByIdUseCase.execute({
             id: idServiceExecuted,
+            idClients,
             paymentMethod,
             paymentDate,
-            serviceDate,
-            idServices,
-            idCompanys,
-            idClients,
         });
 
         return response
