@@ -1,11 +1,11 @@
-import { CreateServiceExecutedController } from "@modules/servicesExcuted/useCases/createServiceExecuted/CreateServiceExecutedController";
-import { DeleteServiceExecutedByIdController } from "@modules/servicesExcuted/useCases/deleteServiceExecutedById/DeleteServiceExecutedByIdController";
-import { FindServiceExecutedByIdController } from "@modules/servicesExcuted/useCases/findServiceExecutedById/FindServiceExecutedByIdController";
-import { ListServiceExecutedByClientIdController } from "@modules/servicesExcuted/useCases/listServiceExecutedByClientId/ListServiceExecutedByClientIdController";
-import { ListServiceExecutedByCompanyIdController } from "@modules/servicesExcuted/useCases/listServiceExecutedByCompanyId/ListServiceExecutedByCompanyIdController";
-import { ListServiceExecutedByServiceIdController } from "@modules/servicesExcuted/useCases/listServiceExecutedByServiceId/ListServiceExecutedByServiceIdController";
-import { ListServiceExecutedByUserIdController } from "@modules/servicesExcuted/useCases/listServiceExecutedByUserId/ListServiceExecutedByUserIdController";
-import { UpdateServiceExecutedByIdController } from "@modules/servicesExcuted/useCases/updateServiceExecutedById/UpdateServiceExecutedByIdController";
+import { CreateServiceExecutedController } from "@modules/servicesExcuteds/useCases/createServiceExecuted/CreateServiceExecutedController";
+import { DeleteServiceExecutedByIdController } from "@modules/servicesExcuteds/useCases/deleteServiceExecutedById/DeleteServiceExecutedByIdController";
+import { FindServiceExecutedByIdController } from "@modules/servicesExcuteds/useCases/findServiceExecutedById/FindServiceExecutedByIdController";
+import { ListServiceExecutedByClientIdController } from "@modules/servicesExcuteds/useCases/listServiceExecutedByClientId/ListServiceExecutedByClientIdController";
+import { ListServiceExecutedByCompanyIdController } from "@modules/servicesExcuteds/useCases/listServiceExecutedByCompanyId/ListServiceExecutedByCompanyIdController";
+import { ListServiceExecutedByServiceIdController } from "@modules/servicesExcuteds/useCases/listServiceExecutedByServiceId/ListServiceExecutedByServiceIdController";
+import { ListServiceExecutedByUserIdController } from "@modules/servicesExcuteds/useCases/listServiceExecutedByUserId/ListServiceExecutedByUserIdController";
+import { UpdateServiceExecutedByIdController } from "@modules/servicesExcuteds/useCases/updateServiceExecutedById/UpdateServiceExecutedByIdController";
 import { Router } from "express";
 
 import { ensureAdmin } from "../middlewares/ensureAdmin";
