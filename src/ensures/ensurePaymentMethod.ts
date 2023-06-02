@@ -1,4 +1,4 @@
-import { PaymentMethod } from "@modules/servicesExcuted/dtos/ICreateServiceExecutedDTO";
+import { PaymentMethod } from "@modules/servicesExcuteds/dtos/ICreateServiceExecutedDTO";
 
 /* eslint-disable no-useless-escape */
 export const ensurePaymentMethod = (paymentMethod: PaymentMethod) => {
