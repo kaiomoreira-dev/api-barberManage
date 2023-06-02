@@ -9,8 +9,8 @@ import { CostsRepository } from "@modules/costs/infra/repositories/CostsReposito
 import { ICostsRepository } from "@modules/costs/repositories/ICostsRepository";
 import { ServicesRepository } from "@modules/services/infra/mongoose/repositories/ServicesRepository";
 import { IServicesRepository } from "@modules/services/repositories/IServicesRepository";
-import { ServiceExecutedRepository } from "@modules/servicesExcuted/infra/mongoose/repositories/ServiceExecutedRepository";
-import { IServiceExecutedRepository } from "@modules/servicesExcuted/repositories/IServiceExecutedRepository";
+import { ServiceExecutedRepository } from "@modules/servicesExcuteds/infra/mongoose/repositories/ServiceExecutedRepository";
+import { IServiceExecutedRepository } from "@modules/servicesExcuteds/repositories/IServiceExecutedRepository";
 import { container } from "tsyringe";
 import { IClientsRepository } from "@modules/clients/repositories/IClientsRepository";
 import { ClientsRepository } from "@modules/clients/infra/mongoose/repositories/ClientsRepository";
