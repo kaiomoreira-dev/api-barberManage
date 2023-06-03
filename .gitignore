@@ -6,4 +6,4 @@ yarn.lock
 .editorconfig
 .eslintrc.json
 coverage
-.dist
+dist
