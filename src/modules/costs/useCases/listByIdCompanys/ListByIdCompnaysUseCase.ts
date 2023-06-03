@@ -1,10 +1,8 @@
 import { ensureId } from "@ensures/ensureId";
 import { ICreateCompanysDTO } from "@modules/companys/dtos/ICreateCompanysDTO";
-import { ICompanyModel } from "@modules/companys/infra/mongoose/entities/Companys";
 import { ICompanysRepository } from "@modules/companys/repositories/ICompanysRepository";
 import { ICostModel } from "@modules/costs/infra/entities/Cost";
 import { ICostsRepository } from "@modules/costs/repositories/ICostsRepository";
-import { ensureName } from "ensures/ensureName";
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "@shared/errors/AppError";
