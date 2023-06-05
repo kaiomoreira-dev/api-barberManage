@@ -11,7 +11,7 @@ async function seedAdmin() {
         const password = await hash(process.env.USER_PASSWORD, 8);
 
         await connection.collection("users").insertOne({
-            name: "User Admin",
+            name: "Luis Douglas Ramos Maria",
             email: process.env.USER_EMAIL,
             password,
             phone: "",
