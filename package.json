@@ -8,7 +8,7 @@
     "test": "export set NODE_OPTIONS=--max_old_space_size=16192 && NODE_ENV=test jest --runInBand --verbose --useStderr --forceExit",
     "dev": "ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
     "start": "node dist/shared/infra/http/server.js",
-    "seed": "ts-node-dev -r tsconfig-paths/register src/shared/infra/mongoose/seed/seedAdmin.ts"
+    "seed": "ts-node-dev -r tsconfig-paths/register dist/shared/infra/mongoose/seed/seedAdmin.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
