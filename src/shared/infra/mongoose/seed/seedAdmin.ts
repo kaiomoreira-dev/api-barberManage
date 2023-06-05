@@ -14,7 +14,7 @@ async function seedAdmin() {
             name: "Luis Douglas Ramos Maria",
             email: process.env.USER_EMAIL,
             password,
-            phone: "",
+            phone: "55-55555-5555",
             address: "",
             admin: true,
             employee: true,
