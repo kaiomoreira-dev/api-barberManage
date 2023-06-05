@@ -8,6 +8,7 @@ import { Router } from "express";
 
 import { ensureAdmin } from "../middlewares/ensureAdmin";
 import { ensureAuthenticate } from "../middlewares/ensureAuthenticate";
+import { ensureEmployee } from "../middlewares/ensureEmployee";
 
 export const usersRoutes = Router();
 
@@ -42,7 +43,7 @@ usersRoutes.get(
 usersRoutes.get(
     "/company/:idCompanys",
     ensureAuthenticate,
-    ensureAdmin,
+    ensureEmployee,
     listUsersByCompanyIdController.handle
 );
 
