@@ -24,7 +24,8 @@ async function seedAdmin() {
 
         await connection.close();
     } catch (error) {
-        throw new AppError("Error while creating admin user");
+        console.log(error.message);
+        process.exit(1);
     }
 }
 
