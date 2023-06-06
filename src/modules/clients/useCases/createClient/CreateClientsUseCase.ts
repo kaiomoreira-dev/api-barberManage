@@ -31,6 +31,7 @@ export class CreateClientsUseCase {
         num,
         pg,
         phone,
+        military,
     }: ICreateClientDTO): Promise<IClientModel> {
         if (!ensureId(idCompanys)) {
             throw new AppError("Client not found", 404);
@@ -86,6 +87,7 @@ export class CreateClientsUseCase {
             num,
             pg,
             phone,
+            military,
         });
 
         return client;
