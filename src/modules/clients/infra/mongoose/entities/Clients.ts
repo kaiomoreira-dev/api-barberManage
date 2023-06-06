@@ -11,6 +11,7 @@ export interface IClientModel extends Document {
     num?: number;
     pg: string;
     esqd: string;
+    military: boolean;
     createdAt?: Date;
     updatedAt?: Date;
 }
@@ -22,6 +23,7 @@ export const ClientSchema = new Schema<IClientModel>({
     address: { type: String, required: false },
     debit: { type: Number, required: false, default: 0 },
     num: { type: Number, required: false },
+    military: { type: Boolean, required: true, default: false },
     pg: { type: String, enum: Object.values(Pg), required: false },
     esqd: { type: String, enum: Object.values(Esqd), required: false },
     createdAt: { type: Date, default: Date.now },
