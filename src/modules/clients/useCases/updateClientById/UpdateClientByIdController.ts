@@ -6,7 +6,7 @@ import { UpdateClientByIdUseCase } from "./UpdateClientByIdUseCase";
 
 export class UpdateClientByIdController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const { idCompanys, name, address, esqd, num, pg, phone } =
+        const { idCompanys, name, address, esqd, num, pg, phone, military } =
             request.body;
         const { idClients } = request.params;
 
@@ -23,6 +23,7 @@ export class UpdateClientByIdController {
             num,
             pg,
             phone,
+            military,
         });
 
         return response
