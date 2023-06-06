@@ -92,7 +92,6 @@ export class ListServiceExecutedByClientIdUseCase {
 
             allServicesExecutedByClient.push(serviceExecuted);
         }
-
         return allServicesExecutedByClient;
     }
 }
