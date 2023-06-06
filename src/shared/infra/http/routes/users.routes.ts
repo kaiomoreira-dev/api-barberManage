@@ -43,7 +43,7 @@ usersRoutes.get(
 usersRoutes.get(
     "/company/:idCompanys",
     ensureAuthenticate,
-    ensureEmployee,
+    ensureAdmin,
     listUsersByCompanyIdController.handle
 );
 
