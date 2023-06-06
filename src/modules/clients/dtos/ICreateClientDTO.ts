@@ -31,4 +31,5 @@ export interface ICreateClientDTO {
     num?: number;
     pg?: Pg;
     esqd?: Esqd;
+    military?: boolean;
 }
