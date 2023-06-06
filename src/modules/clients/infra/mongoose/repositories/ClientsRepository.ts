@@ -23,6 +23,7 @@ export class ClientsRepository implements IClientsRepository {
         num,
         esqd,
         pg,
+        military,
     }: ICreateClientDTO): Promise<IClientModel> {
         try {
             const clients = await this.repository.create({
@@ -34,6 +35,7 @@ export class ClientsRepository implements IClientsRepository {
                 num,
                 esqd,
                 pg,
+                military,
             });
 
             return clients;
@@ -99,6 +101,7 @@ export class ClientsRepository implements IClientsRepository {
         num,
         pg,
         phone,
+        military,
     }: ICreateClientDTO): Promise<void> {
         try {
             await this.repository.findByIdAndUpdate(id, {
@@ -110,6 +113,7 @@ export class ClientsRepository implements IClientsRepository {
                 num,
                 pg,
                 phone,
+                military,
             });
         } catch (error) {
             console.log(error.message);
