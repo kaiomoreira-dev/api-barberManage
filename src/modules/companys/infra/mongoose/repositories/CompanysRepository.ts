@@ -82,6 +82,20 @@ export class CompanysRepository implements ICompanysRepository {
             throw new AppError("Error update company");
         }
     }
+    async updateListUsersById(
+        idCompanys: string,
+        idUsers: string
+    ): Promise<void> {
+        try {
+            await this.repository.findByIdAndUpdate(idCompanys, {
+                $push: { idUsers },
+            });
+        } catch (error) {
+            console.log(error.message);
+            throw new AppError("Error update company");
+        }
+    }
+
     async deleteById(id: string): Promise<void> {
         try {
             await this.repository.findByIdAndDelete(id);
