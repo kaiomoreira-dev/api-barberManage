@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/no-extraneous-dependencies */
 import { ensureEmail } from "@ensures/ensureEmail";
@@ -58,16 +59,19 @@ export class CreateUserUseCase {
         const passwordHash = await hash(password, 8);
 
         // Validar se compania existe!!
-        if (!ensureId(idCompanys)) {
-            throw new AppError("Company not found", 401);
-        }
+        for (const company of idCompanys) {
+            if (!ensureId(String(company))) {
+                throw new AppError("Company not found", 401);
+            }
 
-        const checkCompanyExists = await this.companysRepository.findById(
-            idCompanys
-        );
+            // eslint-disable-next-line no-await-in-loop
+            const checkCompanyExists = await this.companysRepository.findById(
+                String(company)
+            );
 
-        if (!checkCompanyExists) {
-            throw new AppError("Company not found", 401);
+            if (!checkCompanyExists) {
+                throw new AppError("Company not found", 401);
+            }
         }
 
         const user = await this.userRepository.create({
@@ -78,6 +82,16 @@ export class CreateUserUseCase {
             phone,
             idCompanys,
         });
+
+        if (idCompanys.length > 0) {
+            for (const company of user.idCompanys) {
+                // eslint-disable-next-line no-await-in-loop
+                await this.companysRepository.updateListUsersById(
+                    String(company),
+                    user.id
+                );
+            }
+        }
 
         return user;
     }
