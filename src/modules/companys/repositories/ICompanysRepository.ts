@@ -11,6 +11,7 @@ export interface ICompanysRepository {
     findByName(name: string): Promise<ICompanyModel>;
 
     updateById(data: ICreateCompanysDTO): Promise<void>;
+    updateListUsersById(idCompanys: string, idUsers: string): Promise<void>;
 
     deleteById(id: string): Promise<void>;
 }
