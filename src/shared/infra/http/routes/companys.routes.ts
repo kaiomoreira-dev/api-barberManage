@@ -7,6 +7,7 @@ import { Router } from "express";
 
 import { ensureAdmin } from "../middlewares/ensureAdmin";
 import { ensureAuthenticate } from "../middlewares/ensureAuthenticate";
+import { ensureEmployee } from "../middlewares/ensureEmployee";
 
 export const companysRoutes = Router();
 
@@ -29,7 +30,7 @@ companysRoutes.post(
 companysRoutes.get(
     "/",
     ensureAuthenticate,
-    ensureAdmin,
+    ensureEmployee,
     listCompanyByUserIdController.handle
 );
 companysRoutes.get(
