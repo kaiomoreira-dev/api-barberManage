@@ -9,7 +9,7 @@ export default async function connectionMongoDB(): Promise<Connection> {
         const url =
             process.env.NODE_ENV === "test"
                 ? process.env.MONGODB_URL_DBTEST
-                : process.env.MONGODB_URL_BARBERMANAGE;
+                : JSON.parse(process.env.MONGODB_URL_BARBERMANAGE);
 
         await mongoose.connect(url);
 
