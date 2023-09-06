@@ -5,6 +5,6 @@ import { app } from "./app";
 
 createConnection();
 
-app.listen(3200, "0.0.0.0", () => {
+app.listen(3000, '0.0.0.0', () => {
     console.log("Server listening on port 3200");
 });
